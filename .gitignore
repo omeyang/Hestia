@@ -1,0 +1,19 @@
+# 原始资料、个人敏感信息与第三方大文件默认本地保存
+/local/
+/private/
+/cache/
+/artifacts/
+
+# 登录状态和服务密钥
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+cookies*.txt
+
+# 开发缓存
+__pycache__/
+*.pyc
+.venv/
+.DS_Store

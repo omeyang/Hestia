@@ -1,0 +1,96 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-13",
+  "policy": {
+    "experience_sources": "user_selected_only",
+    "follow_recommendations": false,
+    "expand_external_links": false,
+    "official_reference_hosts": [
+      "www.mohurd.gov.cn",
+      "js.shaanxi.gov.cn",
+      "www.xa.gov.cn",
+      "std.samr.gov.cn",
+      "openstd.samr.gov.cn",
+      "www.gov.cn"
+    ],
+    "technical_reference_is_renovation_evidence": false
+  },
+  "user_selected_sources": [],
+  "official_reference_entries": [
+    {
+      "id": "official-mohurd",
+      "title": "住房和城乡建设部",
+      "url": "https://www.mohurd.gov.cn/",
+      "kind": "discovery_portal",
+      "scope": "工程建设标准和发布、修改、废止公告",
+      "status": "reference_entry",
+      "full_text_ingested": false
+    },
+    {
+      "id": "official-shaanxi",
+      "title": "陕西省住房和城乡建设厅",
+      "url": "https://js.shaanxi.gov.cn/",
+      "kind": "discovery_portal",
+      "scope": "陕西工程建设标准及相关规定",
+      "status": "reference_entry",
+      "full_text_ingested": false
+    },
+    {
+      "id": "official-xian",
+      "title": "西安市人民政府",
+      "url": "https://www.xa.gov.cn/",
+      "kind": "discovery_portal",
+      "scope": "西安相关规定与有效性信息",
+      "status": "reference_entry",
+      "full_text_ingested": false
+    },
+    {
+      "id": "official-national-catalog",
+      "title": "全国标准信息公共服务平台国家标准目录",
+      "url": "https://std.samr.gov.cn/gb/gbQuery.National",
+      "kind": "discovery_portal",
+      "scope": "相关国家标准元数据；工程建设领域须另查主管部门",
+      "status": "reference_entry",
+      "full_text_ingested": false
+    },
+    {
+      "id": "official-national-text",
+      "title": "国家标准全文公开系统",
+      "url": "https://openstd.samr.gov.cn/bzgk/gb/",
+      "kind": "discovery_portal",
+      "scope": "可公开查询的标准；遵守文本使用和再传播限制",
+      "status": "reference_entry",
+      "full_text_ingested": false
+    },
+    {
+      "id": "official-residential-code-publication-notice",
+      "title": "住房城乡建设部关于发布国家标准《住宅项目规范》的公告",
+      "url": "https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2025/art_66adac27fa2144bb86f98fe4c297efd6.html",
+      "kind": "publication_notice",
+      "scope": "用于说明条文替代核验方法；本房屋具体条款适用性待判断",
+      "status": "notice_reviewed_standard_pending",
+      "reviewed_on": "2026-10-13",
+      "full_text_ingested": false
+    },
+    {
+      "id": "candidate-shaanxi-residential-quality-guide",
+      "title": "住宅品质提升设计导则",
+      "url": "https://js.shaanxi.gov.cn/sy/yw/gcjsbz/bztzgg/202601/P020260128461558973421.pdf",
+      "kind": "candidate_document",
+      "scope": "须核验本房屋装修适用范围，不直接认定为业主改造要求",
+      "status": "pending_full_review",
+      "full_text_ingested": false
+    }
+  ],
+  "excluded_documents": [
+    {
+      "id": "excluded-xian-heating-rules-2019",
+      "title": "2019年《〈西安市集中供热条例〉实施细则》",
+      "url": "https://www.xa.gov.cn/gk/zcfg/gfxwj/zfgfxwj/5d4909b8fd850833ac58d045.html",
+      "reviewed_on": "2026-10-13",
+      "status": "excluded",
+      "reason": "官方页面有效性字段标注失效，不作为当前决策依据。",
+      "replacement": null
+    }
+  ]
+}

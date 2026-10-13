@@ -1,0 +1,44 @@
+{
+  "template": true,
+  "id": null,
+  "type": null,
+  "original_statement": null,
+  "normalized_statement": null,
+  "topics": [],
+  "stages": [],
+  "evidence": [],
+  "counter_evidence": [],
+  "conditions": {
+    "region": null,
+    "building": null,
+    "substrate": null,
+    "material_system": null,
+    "method": null,
+    "valid_time": null
+  },
+  "commercial_relationship": null,
+  "shared_origin_id": null,
+  "standard_references": [],
+  "review": {
+    "status": "pending",
+    "reviewed_on": null,
+    "review_basis": null,
+    "reviewer": null,
+    "reason": null,
+    "unresolved_questions": []
+  },
+  "applicability": {
+    "profile_id": null,
+    "profile_updated_on": null,
+    "status": "unknown",
+    "reason": null,
+    "required_site_checks": []
+  },
+  "processing": {
+    "tool_or_model": null,
+    "prompt_version": null,
+    "processed_on": null
+  },
+  "supersedes": [],
+  "used_by_articles": []
+}

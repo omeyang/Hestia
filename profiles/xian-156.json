@@ -1,0 +1,52 @@
+{
+  "id": "home-xian-156",
+  "updated_on": "2026-10-13",
+  "known_from": "user_statement",
+  "location": {
+    "country": "中国",
+    "province": "陕西省",
+    "city": "西安市",
+    "district": null
+  },
+  "area_sqm": {
+    "gross": 190,
+    "internal": 156,
+    "measurement_verified": false,
+    "construction_quantities": null
+  },
+  "handover_condition": "完全毛坯",
+  "floor_plan": null,
+  "floor": null,
+  "building_structure": null,
+  "orientation": null,
+  "handover_date": null,
+  "planned_start_date": null,
+  "budget": {
+    "total_cny": null,
+    "includes_design": null,
+    "includes_appliances": null,
+    "includes_furniture": null,
+    "contingency_cny": null
+  },
+  "household": {
+    "residents": null,
+    "accessibility_needs": null,
+    "pets": null,
+    "lifestyle_priorities": null
+  },
+  "existing_systems": {
+    "heating_type": null,
+    "underfloor_heating": null,
+    "gas": null,
+    "electrical_supply": null,
+    "drainage": null,
+    "air_conditioning_provisions": null,
+    "windows": null
+  },
+  "property_decoration_requirements": null,
+  "notes": [
+    "具体面积和施工工程量需结合图纸及现场测量确认。",
+    "户型图尚未提供，不能据此判断结构、设备迁改或空间方案。",
+    "当地要求优先检索陕西省、西安市，同时核对适用的国家要求。"
+  ]
+}

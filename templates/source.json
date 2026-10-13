@@ -1,0 +1,31 @@
+{
+  "template": true,
+  "id": null,
+  "platform": null,
+  "source_type": null,
+  "title": null,
+  "url": null,
+  "author": null,
+  "published_on": null,
+  "selected_by": null,
+  "selection_scope": null,
+  "access": {
+    "status": "pending",
+    "method": null,
+    "fetched_on": null,
+    "content_hash": null,
+    "version_or_commit": null,
+    "local_path": null,
+    "available_parts": [],
+    "missing_parts": [],
+    "failure_reason": null
+  },
+  "rights": {
+    "basis": null,
+    "storage_scope": null,
+    "redistribution_scope": null
+  },
+  "commercial_relationship": null,
+  "shared_origin_id": null,
+  "excluded_segments": []
+}
