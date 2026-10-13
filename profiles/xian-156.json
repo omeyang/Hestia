@@ -1,5 +1,6 @@
 {
   "id": "home-xian-156",
+  "revision": 2,
   "updated_on": "2026-10-13",
   "known_from": "user_statement",
   "location": {
@@ -35,18 +36,134 @@
     "lifestyle_priorities": null
   },
   "existing_systems": {
-    "heating_type": null,
+    "heating_type": "集中供暖（用户提供，具体入户条件待确认）",
     "underfloor_heating": null,
+    "heating_circuits_reported": 4,
+    "heating_circuit_type": null,
     "gas": null,
     "electrical_supply": null,
     "drainage": null,
-    "air_conditioning_provisions": null,
+    "air_conditioning_provisions": {
+      "outdoor_unit_positions_reported": 1,
+      "dimensions": null,
+      "installation_conditions_verified": false
+    },
     "windows": null
+  },
+  "renovation_requirements": {
+    "electrical": {
+      "id": "req-electrical-full-replacement",
+      "decision_status": "owner_confirmed_intent",
+      "intent": "开发商交付电路全部更换",
+      "localized_point_to_point_retrofit_accepted": false,
+      "replacement_boundary": null,
+      "design_and_execution_verified": false
+    },
+    "plumbing": {
+      "id": "req-plumbing-full-replacement",
+      "decision_status": "owner_confirmed_intent",
+      "intent": "开发商交付水路彻底更换",
+      "motivation": "减少对原交付管路漏水的担忧",
+      "replacement_boundary": null,
+      "includes_drainage_replacement": null,
+      "design_and_execution_verified": false
+    },
+    "surfaces_and_waterproofing": {
+      "id": "req-remove-delivered-finishes",
+      "decision_status": "owner_confirmed_intent",
+      "remove_developer_wall_surface_layers": true,
+      "remove_developer_waterproofing": true,
+      "wall_layer_material": null,
+      "removal_areas_and_depth": null,
+      "replacement_waterproofing_design": null,
+      "design_and_execution_verified": false
+    },
+    "heating": {
+      "id": "decision-heating-retain-or-rebuild",
+      "decision_status": "undecided",
+      "concerns": [
+        "开发商只交付四路暖通，担心对本房屋面积供暖不足。",
+        "担心砸开重铺耗费较多金钱。"
+      ],
+      "adequacy_verified": false,
+      "rebuild_selected": null,
+      "cost_comparison": null
+    },
+    "air_conditioning": {
+      "id": "req-central-air-conditioning",
+      "decision_status": "owner_confirmed_intent",
+      "selected_direction": "中央空调",
+      "owner_reason": "只有一个空调外机位，因此认为需采用中央空调。",
+      "technical_necessity_verified": false,
+      "system_type": null,
+      "equipment_and_capacity": null,
+      "design_and_execution_verified": false
+    },
+    "water_treatment": {
+      "id": "req-whole-home-water-treatment",
+      "decision_status": "partly_confirmed",
+      "whole_home_water_treatment_required": true,
+      "inlet_filtration_required": true,
+      "inlet_filtration_candidates": [
+        "大白瓶",
+        "前置过滤",
+        "二者组合"
+      ],
+      "inlet_filtration_choice": null,
+      "terminal_purification_required": true,
+      "central_purification_selected": null,
+      "central_softening_selected": null,
+      "water_quality_and_pressure": null,
+      "equipment_and_capacity": null,
+      "design_and_execution_verified": false
+    },
+    "network_and_smart_home": {
+      "id": "req-whole-home-network-and-smart-home",
+      "decision_status": "partly_confirmed",
+      "whole_home_wifi_required": true,
+      "smart_home_required": true,
+      "fttr_reservation_selected": null,
+      "devices": {
+        "smart_home_devices": true,
+        "mobile_phones": true,
+        "computers_minimum": 3,
+        "indoor_cameras": true,
+        "outdoor_cameras": true,
+        "gateways": true,
+        "nas": true
+      },
+      "outdoor_context": {
+        "elevators_per_landing_reported": 2,
+        "households_per_landing_reported": 2,
+        "owner_observation": "室外直接区域没有邻居，用户认为无需担心侵犯隐私。",
+        "privacy_assessment_verified": false,
+        "possible_placements": [
+          "鞋柜",
+          "外卖快递接收柜"
+        ],
+        "camera_coverage_and_placement_conditions_verified": false
+      },
+      "wired_network_plan": null,
+      "network_equipment_location": null,
+      "smart_home_ecosystem": null,
+      "design_and_execution_verified": false
+    },
+    "fresh_air": {
+      "id": "req-fresh-air-system",
+      "decision_status": "owner_confirmed_intent",
+      "required": true,
+      "system_type": null,
+      "equipment_and_capacity": null,
+      "design_and_execution_verified": false
+    }
   },
   "property_decoration_requirements": null,
   "notes": [
     "具体面积和施工工程量需结合图纸及现场测量确认。",
     "户型图尚未提供，不能据此判断结构、设备迁改或空间方案。",
-    "当地要求优先检索陕西省、西安市，同时核对适用的国家要求。"
+    "当地要求优先检索陕西省、西安市，同时核对适用的国家要求。",
+    "用户确定的装修意向与工程可行性、技术必要性分别记录。",
+    "四路暖通的实际类型、覆盖与供暖能力尚未核实，不据此预判是否需重铺。",
+    "水路更换边界待明确，排水、公共管线和供暖管路不自动包含在该意向中。"
   ]
 }
