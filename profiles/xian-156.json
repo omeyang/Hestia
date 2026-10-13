@@ -1,6 +1,6 @@
 {
   "id": "home-xian-156",
-  "revision": 2,
+  "revision": 3,
   "updated_on": "2026-10-13",
   "known_from": "user_statement",
   "location": {
@@ -16,12 +16,15 @@
     "construction_quantities": null
   },
   "handover_condition": "完全毛坯",
+  "handover_completed": true,
+  "renovation_can_start_now": true,
   "floor_plan": null,
   "floor": null,
   "building_structure": null,
   "orientation": null,
   "handover_date": null,
   "planned_start_date": null,
+  "planned_move_in_date": null,
   "budget": {
     "total_cny": null,
     "includes_design": null,
@@ -30,17 +33,36 @@
     "contingency_cny": null
   },
   "household": {
-    "residents": null,
+    "residents": {
+      "core_adults": 2,
+      "children": 1,
+      "elder_caregivers": {
+        "expected": true,
+        "residence_pattern": "阶段性协助照看小孩，人员可能轮换",
+        "simultaneous_residents": null,
+        "expected_duration": "可能持续至孩子上初中"
+      }
+    },
+    "child_planning_horizon": "从入住时的儿童期持续考虑至大学前的长期居住",
     "accessibility_needs": null,
-    "pets": null,
-    "lifestyle_priorities": null
+    "pets": {
+      "currently_kept": false,
+      "future_pets_accepted": false,
+      "policy": "明确不接受饲养任何宠物"
+    },
+    "lifestyle_priorities": null,
+    "private_details_storage": "local_untracked"
   },
   "existing_systems": {
     "heating_type": "集中供暖（用户提供，具体入户条件待确认）",
     "underfloor_heating": null,
     "heating_circuits_reported": 4,
     "heating_circuit_type": null,
-    "gas": null,
+    "gas": {
+      "type": "天然气",
+      "known_from": "user_statement",
+      "supply_and_installation_conditions_verified": false
+    },
     "electrical_supply": null,
     "drainage": null,
     "air_conditioning_provisions": {
@@ -155,8 +177,87 @@
       "system_type": null,
       "equipment_and_capacity": null,
       "design_and_execution_verified": false
+    },
+    "domestic_hot_water": {
+      "id": "req-gas-water-heater",
+      "decision_status": "partly_confirmed",
+      "gas_water_heater_required": true,
+      "electric_water_heater_accepted": false,
+      "zero_cold_water": {
+        "selected": null,
+        "owner_candidate": "大循环零冷水",
+        "return_pipe_and_route": null,
+        "control_mode": null,
+        "operating_cost_comparison": null
+      },
+      "equipment_location": null,
+      "equipment_and_capacity": null,
+      "design_and_execution_verified": false
     }
   },
+  "required_appliances": [
+    {
+      "id": "appliance-washing-machine",
+      "name": "洗衣机",
+      "required": true,
+      "model": null,
+      "location": null
+    },
+    {
+      "id": "appliance-clothes-dryer",
+      "name": "烘干机",
+      "required": true,
+      "model": null,
+      "location": null
+    },
+    {
+      "id": "appliance-refrigerator",
+      "name": "冰箱",
+      "required": true,
+      "model": null,
+      "location": null
+    },
+    {
+      "id": "appliance-dishwasher",
+      "name": "洗碗机",
+      "required": true,
+      "model": null,
+      "location": null
+    },
+    {
+      "id": "appliance-terminal-water-purifier",
+      "name": "终端净水设备",
+      "required": true,
+      "related_requirement_id": "req-whole-home-water-treatment",
+      "model": null,
+      "location": null
+    },
+    {
+      "id": "appliance-floor-cleaning-robot",
+      "name": "自动洗地拖地机器人",
+      "required": true,
+      "automatic_water_supply_and_drainage_required": true,
+      "model": null,
+      "location": null
+    },
+    {
+      "id": "appliance-floor-washer",
+      "name": "自动洗地机",
+      "required": true,
+      "automatic_water_supply_and_drainage_required": true,
+      "device_form": null,
+      "model": null,
+      "location": null
+    },
+    {
+      "id": "appliance-gas-water-heater",
+      "name": "燃气热水器",
+      "required": true,
+      "related_requirement_id": "req-gas-water-heater",
+      "model": null,
+      "location": null
+    }
+  ],
   "property_decoration_requirements": null,
   "notes": [
     "具体面积和施工工程量需结合图纸及现场测量确认。",
@@ -164,6 +265,10 @@
     "当地要求优先检索陕西省、西安市，同时核对适用的国家要求。",
     "用户确定的装修意向与工程可行性、技术必要性分别记录。",
     "四路暖通的实际类型、覆盖与供暖能力尚未核实，不据此预判是否需重铺。",
-    "水路更换边界待明确，排水、公共管线和供暖管路不自动包含在该意向中。"
+    "水路更换边界待明确，排水、公共管线和供暖管路不自动包含在该意向中。",
+    "已交房、可以随时装修不等于已确定开工或入住日期。",
+    "具体家庭年龄与成员关系细节存于本地，不提交公开仓库。",
+    "自动洗地拖地机器人与自动洗地机分别记录，均要求自动上下水。",
+    "确定使用燃气热水器，是否采用大循环零冷水仍待决定。"
   ]
 }

@@ -37,7 +37,7 @@ Hestia 是希腊神话中与炉火和家庭相关的神祇，延续本账号以�
 | 第一版做什么、如何验收 | [实施计划](docs/05-roadmap.md) |
 | 如何取得并判断有效信息 | [有效信息工作方法](docs/06-information-method.md) |
 | 已知房屋条件与待补充信息 | [西安房屋档案](profiles/xian-156.json) |
-| 八项装修意向与待决策事项 | [房屋需求基线](docs/07-house-baseline.md) |
+| 家庭、必需设备、装修意向与待决策事项 | [房屋需求基线](docs/07-house-baseline.md) |
 | 来源白名单、参考入口和排除记录 | [来源登记表](sources/registry.json) |
 | 名称、可见性和初始技术选择 | [初始决策记录](docs/decisions/0001-project-foundation.md) |
 
