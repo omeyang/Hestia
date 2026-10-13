@@ -1,30 +1,20 @@
-%%{init: {"theme":"base","themeVariables":{"fontFamily":"Noto Sans CJK SC, sans-serif","fontSize":"17px","primaryColor":"#eaf2ff","primaryTextColor":"#172b4d","primaryBorderColor":"#49678d","lineColor":"#49678d","background":"#ffffff"},"flowchart":{"htmlLabels":true,"nodeSpacing":35,"rankSpacing":35,"padding":20,"diagramPadding":22,"wrappingWidth":340}}}%%
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Noto Sans CJK SC, sans-serif","fontSize":"17px","primaryColor":"#eaf2ff","primaryTextColor":"#172b4d","primaryBorderColor":"#49678d","lineColor":"#49678d","background":"#ffffff"},"flowchart":{"htmlLabels":true,"nodeSpacing":32,"rankSpacing":44,"padding":20,"diagramPadding":24,"wrappingWidth":280}}}%%
 flowchart TB
-    A["前期准备<br/>验房需求 · 设计预算 · 合同采购 · 交底"]
-    B["拆改阶段<br/>按确认范围处理 · 保护与复测"]
-    C["水电阶段<br/>给排水 · 电气 · 网络<br/>协调空调新风等专业前期接口"]
-    D["瓦工阶段<br/>基层 · 防水与检查 · 贴砖 · 地面层次"]
-    E["木工阶段<br/>吊顶 · 相关现场木作<br/>顶内设备和检修协调 · 封板前检查"]
-    F["油工阶段<br/>墙顶基层与饰面 · 刷漆 · 保护"]
-    G["全屋定制安装阶段<br/>选定柜体现场安装 · 接口核对"]
-    H["其他主材与设备安装<br/>门地板 · 洁具灯具 · 开关插座<br/>家电接入 · 系统末端"]
-    J["打胶收口与修补<br/>按具体接缝节点安排 · 收边补漆"]
-    K["调试、验收与开荒保洁<br/>功能检查 · 整改 · 资料保修 · 清洁"]
-    L["家具软装进场<br/>搬入布置 · 使用配合 · 成品保护"]
-    M["入住与维护<br/>入住条件与环境复核 · 保修维护"]
-    W["门窗与封窗（按需）<br/>是否需要 → 测量订货 → 安装收口<br/>本家需求待确认 · 配合时点另排"]
-    P["全屋定制前期参与<br/>布局和家电占位 → 水电接口<br/>按完成面条件复尺 → 确认生产"]
-    Q["检查、采购和设备配合贯穿阶段<br/>决定 / 预留 / 安装 / 检查分别记录<br/>各隐蔽部位覆盖前检查并交接"]
-    N["规划草案 v0.2<br/>主线表示阅读顺序，局部工序另核验<br/>瓦木、定制、设备与收口可依方案协调"]
-    A --> B --> C --> D --> E --> F --> G --> H --> J --> K --> L --> M
-    A -. "提前确认需求与周期" .-> W
-    W -. "协调相关节点与收口" .-> D
-    A -. "设计与预留" .-> P
-    P -. "接口配合" .-> C
-    P -. "具备条件后安装" .-> G
-    A -. "贯穿阶段" .-> Q
-    M -. "阅读说明" .-> N
-    classDef planning fill:#fff4d9,stroke:#8d6b24,color:#382b12;
-    classDef gate fill:#e3f4eb,stroke:#397458,color:#173d2a;
-    class W,P,N planning;
-    class Q gate;
+    R["装修全周期总览 v0.3<br/>总模块 → 工种/工作阶段 → 子项任务<br/>阅读层级与实际施工依赖分别记录"]
+    A["A 筹备与方案<br/>A1 验房与档案<br/>A2 需求与综合设计<br/>A3 团队合同采购<br/>A4 开工准备与交底"]
+    B["B 现场与隐蔽工程<br/>B1 拆改<br/>B2 门窗封窗（按需）<br/>B3 水电<br/>B4 系统前期配合"]
+    C["C 硬装工种<br/>C1 瓦工<br/>C2 木工<br/>C3 油工"]
+    D["D 定制、安装与收尾<br/>D1 全屋定制安装<br/>D2 主材安装<br/>D3 设备末端安装<br/>D4 打胶收口修补"]
+    E["E 交付与入住<br/>E1 单机与系统调试<br/>E2 竣工检查与资料交接<br/>E3 开荒保洁<br/>E4 家具软装进场<br/>E5 入住条件复核"]
+    F["F 使用、维护与迭代<br/>F1 使用维护<br/>F2 问题返修<br/>F3 复盘与再优化"]
+    W["展开示例：B3 水电阶段<br/>B3.1 更换边界 · B3.2 点位协调<br/>B3.3 给水冷热水 · B3.4 排水<br/>B3.5 配电 · B3.6 网络智能<br/>B3.7 实施记录 · B3.8 检查交接"]
+    T["每个子项的任务卡<br/>前置资料 · 责任与交付 · 证据状态<br/>决定 / 预留 / 安装 / 检查<br/>对象版本 · 依赖接口 · 变更与待办"]
+    N["阶段目录为规划范围<br/>门窗、定制、设备和检查跨阶段关联<br/>后续信息可回改前面内容并联动更新"]
+    R --> A & B & C & D & E & F
+    B -- "进入阶段与子项" --> W
+    W -- "按实际资料建立记录" --> T
+    T -. "规划与迭代说明" .-> N
+    classDef detail fill:#e3f4eb,stroke:#397458,color:#173d2a;
+    classDef note fill:#fff4d9,stroke:#8d6b24,color:#382b12;
+    class W,T detail;
+    class N note;

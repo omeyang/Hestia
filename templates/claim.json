@@ -1,11 +1,14 @@
 {
   "template": true,
   "id": null,
+  "revision": null,
   "type": null,
   "original_statement": null,
   "normalized_statement": null,
   "topics": [],
   "stages": [],
+  "module_ids": [],
+  "task_ids": [],
   "evidence": [],
   "counter_evidence": [],
   "conditions": {
@@ -40,5 +43,8 @@
     "processed_on": null
   },
   "supersedes": [],
+  "depends_on": [],
+  "change_record_ids": [],
+  "revision_history": [],
   "used_by_articles": []
 }

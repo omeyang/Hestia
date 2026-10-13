@@ -554,7 +554,174 @@
         "docs/11-renovation-stages-and-reservations.md",
         "docs/12-stage-research.md"
       ]
+    },
+    {
+      "id": "P-STAGE-09",
+      "revision": 1,
+      "type": "ai_hypothesis",
+      "original_statement": null,
+      "normalized_statement": "以全周期总览、六个总模块、工种/工作阶段及子项任务组织装修资料，专业主题跨阶段关联，实际顺序和影响按任务依赖记录；既有分类编号保留映射。",
+      "topics": [
+        "分层阅读",
+        "持续迭代",
+        "影响分析"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "module_ids": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "task_ids": [],
+      "evidence": [
+        {
+          "evidence_id": "E-STAGE-USER-ITERATION",
+          "location": "本轮用户反馈与项目组织约定",
+          "role": "context"
+        }
+      ],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "pending",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "区分用户明确指令、文档规则与待核验工程内容",
+        "reviewer": "Codex",
+        "reason": "按用户需求提出的规划目录，技术工序与本家适用性仍待逐项核验。",
+        "unresolved_questions": [
+          "自动依赖查询与影响传播尚未实现；真实工程变更闭环尚未验证。",
+          "各阶段/子项的技术依据、现场与产品条件仍待取得。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "组织和修订规则不代替本家工程适用判断。",
+        "required_site_checks": []
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "modules-and-iteration-v0.3",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "depends_on": [],
+      "change_record_ids": [
+        "CHG-20261013-01"
+      ],
+      "revision_history": [],
+      "used_by_articles": [
+        "docs/13-stage-modules.md",
+        "docs/14-iteration-and-change-impact.md"
+      ]
+    },
+    {
+      "id": "P-STAGE-10",
+      "revision": 1,
+      "type": "fact",
+      "original_statement": null,
+      "normalized_statement": "用户明确允许后续信息、理解完善、需求与落地条件变化推动回改前面的材料、工艺、阶段、整理结论和方案，并要求联动修改关联事项；项目已采用RULE-REVISION-01记录方式。",
+      "topics": [
+        "分层阅读",
+        "持续迭代",
+        "影响分析"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "module_ids": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "task_ids": [],
+      "evidence": [
+        {
+          "evidence_id": "E-STAGE-USER-ITERATION",
+          "location": "本轮用户反馈与项目组织约定",
+          "role": "support"
+        }
+      ],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "verified",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "区分用户明确指令、文档规则与待核验工程内容",
+        "reviewer": "Codex",
+        "reason": "核验对象仅为用户明确要求及项目规则的采用，不是工程技术或方案适用性。",
+        "unresolved_questions": [
+          "自动依赖查询与影响传播尚未实现；真实工程变更闭环尚未验证。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "组织和修订规则不代替本家工程适用判断。",
+        "required_site_checks": []
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "modules-and-iteration-v0.3",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "depends_on": [],
+      "change_record_ids": [
+        "CHG-20261013-01"
+      ],
+      "revision_history": [],
+      "used_by_articles": [
+        "docs/13-stage-modules.md",
+        "docs/14-iteration-and-change-impact.md"
+      ]
     }
   ],
-  "presentation_version": "0.2"
+  "presentation_version": "0.3"
 }

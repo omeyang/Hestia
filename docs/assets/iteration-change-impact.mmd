@@ -1,0 +1,30 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Noto Sans CJK SC, sans-serif","fontSize":"17px","primaryColor":"#eaf2ff","primaryTextColor":"#172b4d","primaryBorderColor":"#49678d","lineColor":"#49678d","background":"#ffffff"},"flowchart":{"htmlLabels":true,"nodeSpacing":32,"rankSpacing":44,"padding":20,"diagramPadding":24,"wrappingWidth":280}}}%%
+flowchart TB
+    A["后续信息或实际条件变化<br/>新证据 · 理解更正 · 需求偏好<br/>前期遗漏 · 现场供货等落地限制"]
+    B["比较新旧依据与条件<br/>区分技术判断变化与本家取舍变化<br/>较新或置信较高不自动替代旧判断"]
+    C{"是否需要修订？"}
+    N["保留当前版本<br/>记录未采用理由与缺口"]
+    D["登记变更与原基线<br/>变化对象 · 新旧版本 · 原因与范围"]
+    E["双向检查直接和间接影响<br/>结论方案 ↔ 图纸接口 ↔ 子项任务<br/>预算采购 ↔ 检查记录 ↔ 文章指南"]
+    F["草案或未采购施工事项<br/>比较方案 · 修订前置条件与安排"]
+    G["已订货加工或已施工事项<br/>确认可实施方案与相关专业条件<br/>记录费用工期、返工与复验影响"]
+    H["在已有授权与责任范围内协调取舍<br/>保留实际已发生事实<br/>受影响的待确认作业继续标明状态"]
+    I["联动修改实际受影响对象<br/>更新主记录与引用<br/>保留原始依据和旧版本"]
+    J{"关联更新与必要复核<br/>是否均已完成？"}
+    P["保留未完成待办<br/>明确责任、缺口和受影响作业"]
+    K["完成本次变更闭环<br/>指定新的当前基线 · 保留历史<br/>人工维护关系，自动传播尚未实现"]
+    A --> B --> C
+    C -- "不采用" --> N
+    C -- "需要修订" --> D --> E
+    E --> F & G
+    F --> H
+    G --> H
+    H --> I --> J
+    J -- "尚未完成" --> P
+    P -. "补资料或继续关联更新" .-> I
+    J -- "完成" --> K
+    K -. "新条件再次触发" .-> B
+    classDef note fill:#fff4d9,stroke:#8d6b24,color:#382b12;
+    classDef done fill:#e3f4eb,stroke:#397458,color:#173d2a;
+    class N,G,P note;
+    class K done;
