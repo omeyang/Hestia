@@ -387,5 +387,30 @@
       "available_content": "search_excerpt_only",
       "selection_status": "awaiting_user_selection"
     }
-  ]
+  ],
+  "followup_web_discovery": {
+    "discovered_on": "2026-10-13",
+    "purpose": "工种名称阅读入口调整的候选发现",
+    "query": "装修 工序 拆改 封窗 水电 瓦工 木工 油工 全屋定制 阶段",
+    "content_fetch_performed": false,
+    "candidates": [
+      {
+        "candidate_id": "web-stage-jinlin",
+        "url": "https://www.jinlindesign.com.cn/shejizhuanlan/18.html",
+        "title": "金林设计装修流程页面（搜索片段未提供标题）",
+        "content_read": false,
+        "available_content": "search_excerpt_only",
+        "selection_status": "awaiting_user_selection"
+      },
+      {
+        "candidate_id": "web-stage-yanzhai",
+        "url": "https://www.yanzhai.studio/article-011.html",
+        "title": "装修的完整施工流程是什么？每个阶段设计师要做什么",
+        "content_read": false,
+        "available_content": "search_excerpt_only",
+        "selection_status": "awaiting_user_selection"
+      }
+    ],
+    "note": "未作技术依据，不改变GitHub原批次计数或来源白名单。"
+  }
 }

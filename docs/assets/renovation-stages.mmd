@@ -1,27 +1,30 @@
-%%{init: {"theme":"base","themeVariables":{"fontFamily":"Noto Sans CJK SC, sans-serif","fontSize":"17px","primaryColor":"#eaf2ff","primaryTextColor":"#172b4d","primaryBorderColor":"#49678d","lineColor":"#49678d","background":"#ffffff"},"flowchart":{"htmlLabels":true,"nodeSpacing":35,"rankSpacing":42,"padding":20,"diagramPadding":20,"wrappingWidth":340}}}%%
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Noto Sans CJK SC, sans-serif","fontSize":"17px","primaryColor":"#eaf2ff","primaryTextColor":"#172b4d","primaryBorderColor":"#49678d","lineColor":"#49678d","background":"#ffffff"},"flowchart":{"htmlLabels":true,"nodeSpacing":35,"rankSpacing":35,"padding":20,"diagramPadding":22,"wrappingWidth":340}}}%%
 flowchart TB
-    A["S00—S03 开工前<br/>房屋需求 → 综合设计 → 合同采购 → 交底"]
-    B["S04 经确认的拆除与空间调整<br/>保护原有设施 · 拆后复测"]
-    C["S05 隐蔽管线与设备前期安装<br/>水电 · 网络 · 选定系统接口"]
-    D{"S06 对即将被覆盖的部位<br/>检查、试验、记录、整改是否完成？"}
-    E["S07 湿作业 / S08 吊顶木作<br/>按部位与工法安排<br/>覆盖前重复 S06"]
-    F["S09 墙顶表面与涂饰<br/>按材料条件施工 · 保护已完项目"]
-    G["S10 成品与设备安装<br/>门柜地板等内部顺序另确认"]
-    H["S11 调试、竣工检查与交接<br/>使用功能 · 环境检查<br/>资料与保修"]
-    I["S12 入住准备与使用维护<br/>依据检查结果安排 · 反馈与返修"]
-    P["提前预留清单<br/>布局 · 尺寸基准 · 点位<br/>路线 · 检修<br/>每项记录：决定 / 预留 / 安装 / 检查"]
-    Q["采购与加工贯穿阶段<br/>参数先确认 · 订货和复尺另排<br/>型号与图纸变化时复核接口"]
-    N["规划草案 v0.1<br/>箭头表达交接关系<br/>具体工期、做法和本家适用性待核验"]
-    A --> B --> C --> D
-    D -- "对应部位合格" --> E --> F --> G --> H --> I
-    D -- "未完成：整改后复查" --> C
-    A -. "前期形成" .-> P
-    P -. "相应作业前锁定" .-> C
-    P -. "封板与收口前核对" .-> E
-    A -. "安排周期" .-> Q
-    Q -. "满足交付与安装条件" .-> G
-    I -. "阅读说明" .-> N
+    A["前期准备<br/>验房需求 · 设计预算 · 合同采购 · 交底"]
+    B["拆改阶段<br/>按确认范围处理 · 保护与复测"]
+    C["水电阶段<br/>给排水 · 电气 · 网络<br/>协调空调新风等专业前期接口"]
+    D["瓦工阶段<br/>基层 · 防水与检查 · 贴砖 · 地面层次"]
+    E["木工阶段<br/>吊顶 · 相关现场木作<br/>顶内设备和检修协调 · 封板前检查"]
+    F["油工阶段<br/>墙顶基层与饰面 · 刷漆 · 保护"]
+    G["全屋定制安装阶段<br/>选定柜体现场安装 · 接口核对"]
+    H["其他主材与设备安装<br/>门地板 · 洁具灯具 · 开关插座<br/>家电接入 · 系统末端"]
+    J["打胶收口与修补<br/>按具体接缝节点安排 · 收边补漆"]
+    K["调试、验收与开荒保洁<br/>功能检查 · 整改 · 资料保修 · 清洁"]
+    L["家具软装进场<br/>搬入布置 · 使用配合 · 成品保护"]
+    M["入住与维护<br/>入住条件与环境复核 · 保修维护"]
+    W["门窗与封窗（按需）<br/>是否需要 → 测量订货 → 安装收口<br/>本家需求待确认 · 配合时点另排"]
+    P["全屋定制前期参与<br/>布局和家电占位 → 水电接口<br/>按完成面条件复尺 → 确认生产"]
+    Q["检查、采购和设备配合贯穿阶段<br/>决定 / 预留 / 安装 / 检查分别记录<br/>各隐蔽部位覆盖前检查并交接"]
+    N["规划草案 v0.2<br/>主线表示阅读顺序，局部工序另核验<br/>瓦木、定制、设备与收口可依方案协调"]
+    A --> B --> C --> D --> E --> F --> G --> H --> J --> K --> L --> M
+    A -. "提前确认需求与周期" .-> W
+    W -. "协调相关节点与收口" .-> D
+    A -. "设计与预留" .-> P
+    P -. "接口配合" .-> C
+    P -. "具备条件后安装" .-> G
+    A -. "贯穿阶段" .-> Q
+    M -. "阅读说明" .-> N
     classDef planning fill:#fff4d9,stroke:#8d6b24,color:#382b12;
     classDef gate fill:#e3f4eb,stroke:#397458,color:#173d2a;
-    class P,Q,N planning;
-    class D gate;
+    class W,P,N planning;
+    class Q gate;

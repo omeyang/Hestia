@@ -15,7 +15,7 @@
 
 ## 里程碑 1：小样本学习闭环
 
-前置组织工作：已形成[装修阶段与提前预留 v0.1](11-renovation-stages-and-reservations.md)，将原有阅读目录映射到工作步骤、交接与接口问题。已执行一轮 GitHub 元数据搜索，保存[实际批次](../sources/stage-search-batch.json)和[候选短名单](../sources/stage-source-candidates.json)，并核对部分官方原文；[调研记录](12-stage-research.md)说明取得范围与限制。这些结果不表示已导入经验正文、完成标准时效核验或生成可执行指南。
+前置组织工作：已形成[装修阶段与提前预留 v0.2](11-renovation-stages-and-reservations.md)，业主入口采用工种名称，已有分类与工作步骤用于追踪交接和接口问题。已执行一轮 GitHub 元数据搜索，保存[实际批次](../sources/stage-search-batch.json)和[候选短名单](../sources/stage-source-candidates.json)，并核对部分官方原文；[调研记录](12-stage-research.md)说明取得范围与限制。这些结果不表示已导入经验正文、完成标准时效核验或生成可执行指南。
 
 同时保留 GitHub 文本路线，避免把视频媒体取得作为所有来源学习的前置条件。[统一来源管道与 GitHub 方案](09-source-pipeline-and-github.md)已给出搜索预算、候选筛选、指定范围、固定提交与清洗规则，以及交接模板；项目专用工具当前仍为设计，候选发现已通过现有 CLI/API 执行一次。由用户指定少量仓库及路径后，围绕一个实际问题形成来源分析、结论和学习文章。有足够核验与房屋资料时再汇成指南；未实际验证的仓库图片、PDF、Issues、Wiki 与 Agent 自动编排不算已支持。
 

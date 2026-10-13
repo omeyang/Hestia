@@ -476,6 +476,85 @@
         "docs/11-renovation-stages-and-reservations.md",
         "docs/12-stage-research.md"
       ]
+    },
+    {
+      "id": "P-STAGE-08",
+      "type": "ai_hypothesis",
+      "original_statement": "业主提出使用拆改、封窗、水电、瓦工、木工、油工、全屋定制、安装收尾及家具进场等名称，并说明顺序与完整性待确认。",
+      "normalized_statement": "采用业主提出的工种名称作为阅读入口，补充前期准备、按需门窗、定制安装、主材设备安装、打胶修补、调试验收保洁、家具软装与入住维护；已有分类和工作编号保留用于追踪。门窗、定制、设备和检查跨阶段协调，表格位置不等于固定施工顺序。",
+      "topics": [
+        "阶段命名",
+        "业主阅读入口",
+        "跨阶段配合"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "E-STAGE-USER-NAMES",
+          "location": "本轮用户反馈",
+          "role": "context"
+        },
+        {
+          "evidence_id": "E-STAGE-HOUSE",
+          "location": "existing_systems.windows、renovation_requirements",
+          "role": "context"
+        }
+      ],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "pending",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "依据用户阅读偏好调整组织方式；工序及本家适用性另核验",
+        "reviewer": "Codex",
+        "reason": "呈现方式已按反馈采用；不宣称业内存在统一的阶段范围和顺序。",
+        "unresolved_questions": [
+          "本家门窗现状及是否更换/封阳台未知。",
+          "各阶段局部顺序、专业分工、产品接口与检查条件仍需设计和现场依据。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "房屋revision 3；采用阅读名称不确认新增改造需求。",
+        "required_site_checks": [
+          "门窗与现场条件",
+          "专业设计及产品接口"
+        ]
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "stage-presentation-v0.2",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "used_by_articles": [
+        "docs/03-content.md",
+        "docs/11-renovation-stages-and-reservations.md",
+        "docs/12-stage-research.md"
+      ]
     }
-  ]
+  ],
+  "presentation_version": "0.2"
 }

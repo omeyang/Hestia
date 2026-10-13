@@ -163,6 +163,16 @@
         "申请网络重试后仍不可达"
       ],
       "scope": "仅用于记录获取缺口与待核查状态，不作为技术依据"
+    },
+    {
+      "id": "E-STAGE-USER-NAMES",
+      "source_id": "user-stage-naming-feedback-20261013",
+      "source_kind": "user_preference",
+      "reviewed_on": "2026-10-13",
+      "locations": [
+        "本轮用户关于拆改、封窗、水电、瓦工、木工、油工、全屋定制、安装收尾与家具进场的反馈"
+      ],
+      "scope": "支持采用工种名称作为业主阅读入口；用户也说明顺序与完整性待确认，不作为业内统一工序证据"
     }
   ]
 }
