@@ -1,0 +1,391 @@
+{
+  "schema_version": 1,
+  "batch_id": "renovation-stages-20261013",
+  "status": "discovery_only",
+  "github_unique_metadata_candidates": 79,
+  "shortlist": [
+    {
+      "candidate_id": "gh-repo-1284889108",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 1284889108,
+      "url": "https://github.com/zx029w/zhuangxiu-skills",
+      "title": "zx029w/zhuangxiu-skills",
+      "author": "zx029w",
+      "description": "45个装修避坑独立Skill合集 — 覆盖全屋定制、老房改造、合同审核、报价审核、方案诊断、环保避坑、流程管控、翻车急救、避坑问答、增项避雷、公司选择等装修全流程",
+      "default_branch": "main",
+      "pushed_at": "2026-09-29T11:16:24Z",
+      "license_hint": "MIT",
+      "discovery": {
+        "queries_matched": [
+          "gh-q01",
+          "gh-q05"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "pending",
+        "content_type": "装修AI技能合集",
+        "reason": "简介为AI技能合集；不能把提示词或知识整理自动视为独立工程证据，不安装、不执行。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-382749318",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 382749318,
+      "url": "https://github.com/RobbieXie/2020DecorationNote",
+      "title": "RobbieXie/2020DecorationNote",
+      "author": "RobbieXie",
+      "description": "2020年，我的装修笔记",
+      "default_branch": "main",
+      "pushed_at": "2023-06-19T05:39:10Z",
+      "license_hint": null,
+      "discovery": {
+        "queries_matched": [
+          "gh-q02",
+          "gh-q03"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "continue",
+        "content_type": "个人装修笔记",
+        "reason": "简介明确是装修笔记；优先核对真实过程与前置遗漏，正文未读。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-1244780636",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 1244780636,
+      "url": "https://github.com/fthux/RenoPit",
+      "title": "fthux/RenoPit",
+      "author": "fthux",
+      "description": ":bed: ”装闭“-AI驱动的开源装修闭坑系统。让装修套路“装”不下去。装修闭坑，“装闭”就够了",
+      "default_branch": "master",
+      "pushed_at": "2026-07-17T18:52:20Z",
+      "license_hint": "AGPL-3.0",
+      "discovery": {
+        "queries_matched": [
+          "gh-q02"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "skip",
+        "content_type": "AI装修工具",
+        "reason": "简介为AI避坑工具；对本轮施工阶段经验取证的直接作用有限，不执行。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-49693560",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 49693560,
+      "url": "https://github.com/fxxkscript/zhuangxiu",
+      "title": "fxxkscript/zhuangxiu",
+      "author": "fxxkscript",
+      "description": "装修宝典之杭州篇",
+      "default_branch": "master",
+      "pushed_at": "2016-01-15T03:26:22Z",
+      "license_hint": "MIT",
+      "discovery": {
+        "queries_matched": [
+          "gh-q02",
+          "gh-q05"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "pending",
+        "content_type": "杭州装修资料",
+        "reason": "简介带杭州地域；较早版本不能直接当作西安要求，正文未读。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-259237585",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 259237585,
+      "url": "https://github.com/dumbdonkey/decorating-note",
+      "title": "dumbdonkey/decorating-note",
+      "author": "dumbdonkey",
+      "description": "装修笔记",
+      "default_branch": "master",
+      "pushed_at": "2019-06-21T05:27:19Z",
+      "license_hint": "MIT",
+      "discovery": {
+        "queries_matched": [
+          "gh-q02",
+          "gh-q03"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "continue",
+        "content_type": "装修笔记",
+        "reason": "简介明确为装修笔记；可作为流程与返工问题的候选，正文未读。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-191902703",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 191902703,
+      "url": "https://github.com/yangjunlong/house",
+      "title": "yangjunlong/house",
+      "author": "yangjunlong",
+      "description": "装修笔记:house:",
+      "default_branch": "master",
+      "pushed_at": "2023-05-29T19:20:21Z",
+      "license_hint": "MIT",
+      "discovery": {
+        "queries_matched": [
+          "gh-q03"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "continue",
+        "content_type": "装修笔记",
+        "reason": "简介为装修笔记；需要确认房屋条件、流程和原创性，正文未读。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-482472508",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 482472508,
+      "url": "https://github.com/lijiancheng0614/house-decoration-guide",
+      "title": "lijiancheng0614/house-decoration-guide",
+      "author": "lijiancheng0614",
+      "description": "房屋装修指南",
+      "default_branch": "main",
+      "pushed_at": "2022-05-23T15:48:24Z",
+      "license_hint": "Apache-2.0",
+      "discovery": {
+        "queries_matched": [
+          "gh-q04"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "continue",
+        "content_type": "装修指南",
+        "reason": "简介与阶段学习相关；需要确认正文结构与引用，正文未读。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-965478845",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 965478845,
+      "url": "https://github.com/xfq/zhuangxiu",
+      "title": "xfq/zhuangxiu",
+      "author": "xfq",
+      "description": "装修指南",
+      "default_branch": "main",
+      "pushed_at": "2026-02-02T12:10:24Z",
+      "license_hint": "NOASSERTION",
+      "discovery": {
+        "queries_matched": [
+          "gh-q04",
+          "gh-q05"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "continue",
+        "content_type": "装修指南",
+        "reason": "简介与阶段学习相关；API未识别具体许可条款，正文与许可未读。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-800863714",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 800863714,
+      "url": "https://github.com/iadao/zhuangxiu-doc",
+      "title": "iadao/zhuangxiu-doc",
+      "author": "iadao",
+      "description": "装修指南",
+      "default_branch": "main",
+      "pushed_at": "2024-11-15T13:13:59Z",
+      "license_hint": "MIT",
+      "discovery": {
+        "queries_matched": [
+          "gh-q04"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "continue",
+        "content_type": "装修指南",
+        "reason": "简介与阶段学习相关；需要确认流程与接口清单，正文未读。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    },
+    {
+      "candidate_id": "gh-repo-1221032760",
+      "batch_id": "renovation-stages-20261013",
+      "platform": "github",
+      "platform_stable_id": 1221032760,
+      "url": "https://github.com/jonceli/renovation-guide",
+      "title": "jonceli/renovation-guide",
+      "author": "jonceli",
+      "description": "🏠 装修流程完全指南 — 避坑手册 + 施工标准",
+      "default_branch": "main",
+      "pushed_at": "2026-04-27T00:52:56Z",
+      "license_hint": null,
+      "discovery": {
+        "queries_matched": [
+          "gh-q04"
+        ],
+        "discovered_on": "2026-10-13",
+        "metadata_storage": "local_only",
+        "metadata_directory": "local/discovery/renovation-stages-20261013"
+      },
+      "content_read": false,
+      "rough_review": {
+        "decision": "continue",
+        "content_type": "流程指南",
+        "reason": "简介直接提到装修流程和施工标准；这些表述不证明内容经核验，正文未读。",
+        "basis": "repository_search_metadata_only",
+        "reviewed_on": "2026-10-13"
+      },
+      "selection": {
+        "status": "awaiting_user_selection",
+        "selected_by": null,
+        "selected_on": null,
+        "scope": null
+      },
+      "suggested_preflight": "指定后先固定提交，枚举目录并读取README；再提出最多两个相关文本文件的准确路径。"
+    }
+  ],
+  "other_experience_candidates": [
+    {
+      "candidate_id": "web-stage-cnblogs",
+      "url": "https://www.cnblogs.com/lsgxeva/p/13112543.html",
+      "title": "家庭装修的施工顺序和各个阶段",
+      "content_read": false,
+      "available_content": "search_excerpt_only",
+      "selection_status": "awaiting_user_selection"
+    },
+    {
+      "candidate_id": "web-stage-zxhbs",
+      "url": "https://www.zxhbs.cn/blog/seo/renovation-order-guide",
+      "title": "装修施工顺序全流程：从拆旧到入住的12个步骤",
+      "content_read": false,
+      "available_content": "search_excerpt_only",
+      "selection_status": "awaiting_user_selection"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "batch_id": "renovation-stages-20261013",
+  "purpose": "阶段与预留依赖候选发现",
+  "content_fetch_performed": false,
+  "queries": [
+    {
+      "query_id": "gh-q01",
+      "query": "装修 流程 in:name,description,readme fork:false",
+      "page": 1,
+      "per_page": 12,
+      "retrieved_at": "2026-10-13T08:57:02.963136+00:00",
+      "exit_code": 0,
+      "total_count": 3186,
+      "incomplete_results": false,
+      "returned": 12,
+      "response_path": "local/discovery/renovation-stages-20261013/gh-q01.json",
+      "response_sha256": "0459e6d0e5ba63a5e55e0d91ca6af541211c6918b0fc46a785f4e51b3319231a"
+    },
+    {
+      "query_id": "gh-q02",
+      "query": "装修 in:name,description fork:false",
+      "page": 1,
+      "per_page": 20,
+      "retrieved_at": "2026-10-13T08:57:04.060099+00:00",
+      "exit_code": 0,
+      "total_count": 2309,
+      "incomplete_results": false,
+      "returned": 20,
+      "response_path": "local/discovery/renovation-stages-20261013/gh-q02.json",
+      "response_sha256": "c8b094deaabe41e39bd1e6b65457ddd7a45713957da6be87ae59e347f1dc091e"
+    },
+    {
+      "query_id": "gh-q03",
+      "query": "装修 笔记 in:name,description fork:false",
+      "page": 1,
+      "per_page": 20,
+      "retrieved_at": "2026-10-13T08:57:05.176435+00:00",
+      "exit_code": 0,
+      "total_count": 14,
+      "incomplete_results": false,
+      "returned": 14,
+      "response_path": "local/discovery/renovation-stages-20261013/gh-q03.json",
+      "response_sha256": "06eb35b55e6f54fd0a3f78a288f07e32032b05c43b79e87436fc3bf21531fea2"
+    },
+    {
+      "query_id": "gh-q04",
+      "query": "装修 指南 in:name,description fork:false",
+      "page": 1,
+      "per_page": 20,
+      "retrieved_at": "2026-10-13T08:57:06.527529+00:00",
+      "exit_code": 0,
+      "total_count": 39,
+      "incomplete_results": false,
+      "returned": 20,
+      "response_path": "local/discovery/renovation-stages-20261013/gh-q04.json",
+      "response_sha256": "c3f1b70e38baf7f1a3fe72da1d7cfdcef39ceb7d2bc667b378c6061177b58335"
+    },
+    {
+      "query_id": "gh-q05",
+      "query": "zhuangxiu in:name,description fork:false",
+      "page": 1,
+      "per_page": 20,
+      "retrieved_at": "2026-10-13T08:57:07.698735+00:00",
+      "exit_code": 0,
+      "total_count": 154,
+      "incomplete_results": false,
+      "returned": 20,
+      "response_path": "local/discovery/renovation-stages-20261013/gh-q05.json",
+      "response_sha256": "f04f43db2062e3f874e97026ebd0a4307fb3f8a009705ec349338dc04f34e510"
+    }
+  ],
+  "status": "completed_discovery",
+  "raw_responses_storage": "local_only_not_in_git",
+  "unique_repository_count": 79,
+  "total_returned_before_dedup": 86,
+  "budget_stop_reason": "每组仅取第1页，足以形成小样本候选；没有穷尽GitHub。",
+  "scope_authorization": "用户2026-10-13要求搜索装修阶段及GitHub；仅候选发现，不构成经验来源指定。",
+  "notes": [
+    "前两组先作预览，后以相同查询重取原始响应落盘；记录时间和哈希对应落盘响应。",
+    "incomplete_results=false只描述API本次响应，不代表已经读取全部搜索结果或全部仓库。",
+    "没有读取仓库正文、固定commit、提取施工结论或执行仓库代码。"
+  ]
+}

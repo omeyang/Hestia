@@ -1,6 +1,6 @@
 # 统一来源管道与 GitHub 首版方案
 
-状态：搜索、筛选、获取、清洗和 AI 辅助处理的设计已落文档；适配器、编排器与自动核验均未实现。未搜索或导入实际装修仓库。技术文档核对日期：2026-10-13。
+状态：搜索、筛选、获取、清洗和 AI 辅助处理的设计已落文档；适配器、编排器与自动核验均未实现。已通过现有 GitHub CLI/API 执行一轮阶段规划相关的仓库元数据发现，正文尚未导入。技术文档核对日期：2026-10-13。实际查询、候选和限制见[阶段调研记录](12-stage-research.md)。
 
 ## 先做什么
 
@@ -132,7 +132,8 @@ GitHub API 请求按队列串行执行，记录分页和限流响应。限流依
 | 位置 | 内容 |
 | --- | --- |
 | `sources/github-search-plan.json` | 搜索设计参数；当前已提供 |
-| `local/discovery/<batch_id>/` | 实际查询响应、候选清单与粗验记录；当前未生成 |
+| `local/discovery/<batch_id>/` | 已生成 `renovation-stages-20261013` 批次的原始响应、79 个去重元数据和筛选记录；本地文件不随 Git 同步 |
+| `sources/stage-search-batch.json`、`sources/stage-source-candidates.json` | 阶段规划实际查询索引及公开候选短名单；不授予原文读取权限 |
 | `sources/registry.json` | 用户实际指定的来源与范围；当前无经验来源 |
 | `local/raw/github/<source_id>/<commit_sha>/` | 原始文件与获取清单；当前未生成 |
 | `local/processed/<source_id>/<run_id>/` | 清洗文本、片段映射、AI 输出与运行记录；当前未生成 |

@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-13",
+  "policy": "仅登记实际已读位置；未读内容不支持施工结论；标准全文与页面图片本地保存",
+  "entries": [
+    {
+      "id": "E-STAGE-HOUSE",
+      "source_id": "home-xian-156",
+      "source_kind": "user_statement",
+      "public_location": "profiles/xian-156.json",
+      "profile_revision": 3,
+      "locations": [
+        "renovation_requirements",
+        "required_appliances",
+        "notes"
+      ],
+      "scope": "用户需求和未决事项；不证明工程设计可行",
+      "reviewed_on": "2026-10-13"
+    },
+    {
+      "id": "E-STAGE-CONTROL",
+      "source_id": "official-mohurd-gb55032-2022",
+      "registry_parent_id": "official-mohurd",
+      "allowed_host": "www.mohurd.gov.cn",
+      "source_kind": "official_standard_partial_review",
+      "title": "建筑与市政工程施工质量控制通用规范",
+      "standard_number": "GB 55032-2022",
+      "version": "2022",
+      "url": "https://www.mohurd.gov.cn/file/2022/20220825/aea7e673-4cdd-45e8-9565-f92efcdb8ea0.pdf",
+      "fetched_on": "2026-10-13",
+      "acquisition_status": "fetched_local_browser_fetch_failed",
+      "sha256": "42950e7c080e513c10ba1d4ecb41c1188b8ee0155b122424b6cfa33b03e69e97",
+      "page_count": 35,
+      "reviewed_pdf_pages_1based": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "reviewed_printed_pages": "1—7",
+      "locations": [
+        {
+          "clause": "3.1.1",
+          "pdf_page_1based": 7,
+          "printed_page": 4,
+          "subject": "施工前设计文件与交底记录"
+        },
+        {
+          "clause": "3.1.3(4)",
+          "pdf_page_1based": 7,
+          "printed_page": 4,
+          "subject": "隐蔽工程验收质量控制点"
+        },
+        {
+          "clause": "3.3.4(1—2)",
+          "pdf_page_1based": 8,
+          "printed_page": 5,
+          "subject": "工序自检及工种交接检查记录"
+        },
+        {
+          "clause": "3.3.4(4)",
+          "pdf_page_1based": 9,
+          "printed_page": 6,
+          "subject": "隐蔽前验收、影像及验收文件；合格后继续"
+        },
+        {
+          "clause": "3.3.9",
+          "pdf_page_1based": 10,
+          "printed_page": 7,
+          "subject": "设备与管道安装位置尺寸满足设计及功能"
+        },
+        {
+          "clause": "3.3.11",
+          "pdf_page_1based": 10,
+          "printed_page": 7,
+          "subject": "管道试验方案与设计依据"
+        },
+        {
+          "clause": "3.3.13",
+          "pdf_page_1based": 10,
+          "printed_page": 7,
+          "subject": "系统设备按设计试运行"
+        }
+      ],
+      "reading_method": "本地PDF页面渲染后视觉核对；文本提取仅水印，未OCR",
+      "publication_notice_status": "旧公告URL访问失败",
+      "publication_date": null,
+      "implementation_date": null,
+      "amendment_and_repeal_check": "incomplete",
+      "current_validity": "pending",
+      "applicable_scope": "工程施工质量控制；本户装修具体适用性待专业核查",
+      "reviewed_on": "2026-10-13",
+      "storage": {
+        "path": "local/research/renovation-stages-20261013/gb55032.pdf",
+        "visibility": "local_only_not_in_git"
+      },
+      "redistribution": "公开仅元数据、定位及原创概括，不上传标准全文"
+    },
+    {
+      "id": "E-STAGE-NOTICE",
+      "source_id": "official-residential-code-publication-notice",
+      "source_kind": "official_publication_notice",
+      "url": "https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2025/art_66adac27fa2144bb86f98fe4c297efd6.html",
+      "title": "住房城乡建设部关于发布国家标准《住宅项目规范》的公告",
+      "notice_number": "2025年第39号",
+      "standard_number": "GB 55038-2025",
+      "version": "2025",
+      "issued_on": "2025-03-13",
+      "effective_on": "2025-05-01",
+      "locations": [
+        "公告首段",
+        "公告第四项：GB 50327-2001部分强制性条文废止"
+      ],
+      "status": "notice_contents_reviewed",
+      "reviewed_on": "2026-10-13",
+      "scope": "支持公告内容及其废止清单的准确表述；不代表本次装修全部条款适用",
+      "full_validity_and_application_check": "pending"
+    },
+    {
+      "id": "E-STAGE-RESIDENTIAL-PARTIAL",
+      "source_id": "official-residential-code-publication-notice",
+      "source_kind": "official_standard_attachment_partial_review",
+      "standard_number": "GB 55038-2025",
+      "version": "2025",
+      "attachment_location": "公告附件：住宅项目规范",
+      "landing_page": "https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2025/art_66adac27fa2144bb86f98fe4c297efd6.html",
+      "sha256": "91ef6593dda54013affebb186735ac5df58faf0913748d70e6f377d5259c01b1",
+      "page_count": 26,
+      "reviewed_pdf_pages_1based": [
+        24,
+        25,
+        26
+      ],
+      "reviewed_printed_pages": "21—23",
+      "locations": [
+        "7.4电气：所查看页面部分",
+        "7.5智能化：所查看页面部分"
+      ],
+      "reviewed_on": "2026-10-13",
+      "reading_method": "本地PDF页面渲染后视觉核对；未全文审阅",
+      "storage": {
+        "path": "local/research/renovation-stages-20261013/gb55038.pdf",
+        "visibility": "local_only_not_in_git"
+      },
+      "used_as_construction_requirement": false
+    },
+    {
+      "id": "E-STAGE-SHAANXI-ACCESS",
+      "source_id": "candidate-shaanxi-residential-quality-guide",
+      "source_kind": "acquisition_failure_and_search_hint",
+      "url": "https://js.shaanxi.gov.cn/sy/yw/gcjsbz/bztzgg/202601/P020260128461558973421.pdf",
+      "status": "fetch_failed",
+      "available_content": "search_excerpt_only",
+      "search_hint": "征求意见稿；2026年01月",
+      "content_read": false,
+      "reviewed_on": "2026-10-13",
+      "attempts": [
+        "浏览工具未取得PDF",
+        "本地网络不可达",
+        "申请网络重试后仍不可达"
+      ],
+      "scope": "仅用于记录获取缺口与待核查状态，不作为技术依据"
+    }
+  ]
+}

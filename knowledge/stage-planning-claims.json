@@ -1,0 +1,481 @@
+{
+  "schema_version": 1,
+  "profile_id": "home-xian-156",
+  "profile_revision": 3,
+  "status": "planning_and_partial_reference_review",
+  "claims": [
+    {
+      "id": "P-STAGE-01",
+      "type": "ai_hypothesis",
+      "original_statement": null,
+      "normalized_statement": "以S00—S12组织实际工作步骤，保留00—09学习分类，通过映射关联。",
+      "topics": [
+        "阶段规划",
+        "前后依赖",
+        "提前预留"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "07"
+      ],
+      "evidence": [],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "pending",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "已读原文位置与明确标注的项目组织提案分别处理",
+        "reviewer": "Codex",
+        "reason": "组织提案或部分原文核对，不满足已核验本家施工建议的条件。",
+        "unresolved_questions": [
+          "阶段分组是项目组织选择，不是标准定义；需依据现场组织修订。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "房屋revision 3；不是已经核定的本家工程适用结论。",
+        "required_site_checks": [
+          "图纸与现场条件",
+          "专业设计与接口资料"
+        ]
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "stage-planning-v0.1",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "used_by_articles": [
+        "docs/11-renovation-stages-and-reservations.md",
+        "docs/12-stage-research.md"
+      ]
+    },
+    {
+      "id": "P-STAGE-02",
+      "type": "standard_requirement",
+      "original_statement": null,
+      "normalized_statement": "所读GB 55032-2022条文包含施工前交底、工序自检和工种交接记录，以及隐蔽前验收、影像与验收文件，合格后继续施工的要求。",
+      "topics": [
+        "阶段规划",
+        "前后依赖",
+        "提前预留"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "07"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "E-STAGE-CONTROL",
+          "location": "3.1.1、3.1.3(4)、3.3.4(1—2、4)",
+          "role": "support"
+        }
+      ],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [
+        {
+          "name": "建筑与市政工程施工质量控制通用规范",
+          "number": "GB 55032-2022",
+          "version": "2022",
+          "clauses": [
+            "3.1.1",
+            "3.1.3(4)",
+            "3.3.4(1—2、4)"
+          ],
+          "applicable_scope": "施工质量控制，具体本家范围待确认",
+          "reviewed_on": "2026-10-13",
+          "publication_and_current_validity": "pending"
+        }
+      ],
+      "review": {
+        "status": "pending",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "已读原文位置与明确标注的项目组织提案分别处理",
+        "reviewer": "Codex",
+        "reason": "组织提案或部分原文核对，不满足已核验本家施工建议的条件。",
+        "unresolved_questions": [
+          "已核对原文，但发布实施及后续修改/废止核查不完整。",
+          "本户工程范围、专业角色与实施方式待确认，不能直接认定本家执行清单已核验。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "房屋revision 3；不是已经核定的本家工程适用结论。",
+        "required_site_checks": [
+          "图纸与现场条件",
+          "专业设计与接口资料"
+        ]
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "stage-planning-v0.1",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "used_by_articles": [
+        "docs/11-renovation-stages-and-reservations.md",
+        "docs/12-stage-research.md"
+      ]
+    },
+    {
+      "id": "P-STAGE-03",
+      "type": "ai_hypothesis",
+      "original_statement": null,
+      "normalized_statement": "以有依据的设计接口确认、相应作业、分项检查、覆盖与安装形成交接依赖，前序变化时复核下游。",
+      "topics": [
+        "阶段规划",
+        "前后依赖",
+        "提前预留"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "07"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "E-STAGE-CONTROL",
+          "location": "3.3.4、3.3.9、3.3.11、3.3.13：仅支持相关控制原则",
+          "role": "context"
+        }
+      ],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "pending",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "已读原文位置与明确标注的项目组织提案分别处理",
+        "reviewer": "Codex",
+        "reason": "组织提案或部分原文核对，不满足已核验本家施工建议的条件。",
+        "unresolved_questions": [
+          "具体依赖边界和检查项目待工法、产品及现场资料确认。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "房屋revision 3；不是已经核定的本家工程适用结论。",
+        "required_site_checks": [
+          "图纸与现场条件",
+          "专业设计与接口资料"
+        ]
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "stage-planning-v0.1",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "used_by_articles": [
+        "docs/11-renovation-stages-and-reservations.md",
+        "docs/12-stage-research.md"
+      ]
+    },
+    {
+      "id": "P-STAGE-04",
+      "type": "ai_hypothesis",
+      "original_statement": null,
+      "normalized_statement": "对设备项目分开记录决定、预留、安装与检查，并另排采购复尺；不得用无依据的通用尺寸填补未决接口。",
+      "topics": [
+        "阶段规划",
+        "前后依赖",
+        "提前预留"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "07"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "E-STAGE-HOUSE",
+          "location": "renovation_requirements、required_appliances",
+          "role": "context"
+        }
+      ],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "pending",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "已读原文位置与明确标注的项目组织提案分别处理",
+        "reviewer": "Codex",
+        "reason": "组织提案或部分原文核对，不满足已核验本家施工建议的条件。",
+        "unresolved_questions": [
+          "本家尺寸、点位、管线及设备参数均未确定。",
+          "各行预留内容是调研问题，不是已获产品或规范支持的施工做法。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "房屋revision 3；不是已经核定的本家工程适用结论。",
+        "required_site_checks": [
+          "图纸与现场条件",
+          "专业设计与接口资料"
+        ]
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "stage-planning-v0.1",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "used_by_articles": [
+        "docs/11-renovation-stages-and-reservations.md",
+        "docs/12-stage-research.md"
+      ]
+    },
+    {
+      "id": "P-STAGE-05",
+      "type": "ai_hypothesis",
+      "original_statement": null,
+      "normalized_statement": "门窗、供暖、地面层次、湿作业与木作交叉、成品收口的顺序需按选定方案分别核验。",
+      "topics": [
+        "阶段规划",
+        "前后依赖",
+        "提前预留"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "07"
+      ],
+      "evidence": [],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "pending",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "已读原文位置与明确标注的项目组织提案分别处理",
+        "reviewer": "Codex",
+        "reason": "组织提案或部分原文核对，不满足已核验本家施工建议的条件。",
+        "unresolved_questions": [
+          "本轮没有导入装修经验正文；实际工法与顺序待取证。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "房屋revision 3；不是已经核定的本家工程适用结论。",
+        "required_site_checks": [
+          "图纸与现场条件",
+          "专业设计与接口资料"
+        ]
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "stage-planning-v0.1",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "used_by_articles": [
+        "docs/11-renovation-stages-and-reservations.md",
+        "docs/12-stage-research.md"
+      ]
+    },
+    {
+      "id": "P-STAGE-06",
+      "type": "fact",
+      "original_statement": null,
+      "normalized_statement": "房屋revision 3已记录整体水电更换等意向、中央空调与新风等需求、两个分别登记且要求自动上下水的清洁设备，以及供暖重铺、软水、FTTR、零冷水等未决事项。",
+      "topics": [
+        "阶段规划",
+        "前后依赖",
+        "提前预留"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "07"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "E-STAGE-HOUSE",
+          "location": "renovation_requirements、required_appliances、notes",
+          "role": "support"
+        }
+      ],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "pending",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "已读原文位置与明确标注的项目组织提案分别处理",
+        "reviewer": "Codex",
+        "reason": "组织提案或部分原文核对，不满足已核验本家施工建议的条件。",
+        "unresolved_questions": [
+          "仅为用户陈述及意向的忠实记录；工程可行性与具体实施待核验。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "房屋revision 3；不是已经核定的本家工程适用结论。",
+        "required_site_checks": [
+          "图纸与现场条件",
+          "专业设计与接口资料"
+        ]
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "stage-planning-v0.1",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "used_by_articles": [
+        "docs/11-renovation-stages-and-reservations.md",
+        "docs/12-stage-research.md"
+      ]
+    },
+    {
+      "id": "P-STAGE-07",
+      "type": "fact",
+      "original_statement": null,
+      "normalized_statement": "GB 55038-2025发布公告第四项列出GB 50327-2001部分相关强制性条文同时废止，包括3.1.3；不能继续按原强制条文身份引用，也不等于旧标准整本废止。",
+      "topics": [
+        "阶段规划",
+        "前后依赖",
+        "提前预留"
+      ],
+      "stages": [
+        "00",
+        "01",
+        "03",
+        "04",
+        "07"
+      ],
+      "evidence": [
+        {
+          "evidence_id": "E-STAGE-NOTICE",
+          "location": "公告首段及第四项",
+          "role": "support"
+        }
+      ],
+      "counter_evidence": [],
+      "conditions": {
+        "region": null,
+        "building": null,
+        "substrate": null,
+        "material_system": null,
+        "method": null,
+        "valid_time": null
+      },
+      "commercial_relationship": null,
+      "shared_origin_id": null,
+      "standard_references": [],
+      "review": {
+        "status": "verified",
+        "reviewed_on": "2026-10-13",
+        "review_basis": "已读原文位置与明确标注的项目组织提案分别处理",
+        "reviewer": "Codex",
+        "reason": "公告内容已核对；核验对象仅为公告陈述。",
+        "unresolved_questions": [
+          "仅核验公告实际内容；本家标准适用性与后续时效检查另行处理。"
+        ]
+      },
+      "applicability": {
+        "profile_id": "home-xian-156",
+        "profile_updated_on": "2026-10-13",
+        "status": "unknown",
+        "reason": "房屋revision 3；不是已经核定的本家工程适用结论。",
+        "required_site_checks": [
+          "图纸与现场条件",
+          "专业设计与接口资料"
+        ]
+      },
+      "processing": {
+        "tool_or_model": "Codex",
+        "prompt_version": "stage-planning-v0.1",
+        "processed_on": "2026-10-13"
+      },
+      "supersedes": [],
+      "used_by_articles": [
+        "docs/11-renovation-stages-and-reservations.md",
+        "docs/12-stage-research.md"
+      ]
+    }
+  ]
+}
