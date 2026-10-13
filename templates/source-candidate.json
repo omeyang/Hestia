@@ -1,0 +1,37 @@
+{
+  "template": true,
+  "schema_version": 1,
+  "candidate_id": null,
+  "batch_id": null,
+  "platform": null,
+  "url": null,
+  "title": null,
+  "author": null,
+  "platform_stable_id": null,
+  "discovery": {
+    "queries_matched": [],
+    "discovered_on": null,
+    "metadata_path": null,
+    "metadata_hash": null
+  },
+  "content_read": false,
+  "rough_review": {
+    "decision": "pending",
+    "topic_relevance": null,
+    "content_type": null,
+    "origin_clues": [],
+    "reason": null,
+    "suggested_scope": [],
+    "tool_or_model": null,
+    "prompt_version": null,
+    "reviewed_on": null
+  },
+  "selection": {
+    "status": "awaiting_user_selection",
+    "selected_by": null,
+    "selected_on": null,
+    "selection_record": null,
+    "source_id": null,
+    "scope": null
+  }
+}

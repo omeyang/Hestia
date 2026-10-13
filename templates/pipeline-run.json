@@ -1,0 +1,33 @@
+{
+  "template": true,
+  "schema_version": 1,
+  "run_id": null,
+  "batch_id": null,
+  "candidate_id": null,
+  "source_id": null,
+  "stage": null,
+  "status": "pending",
+  "selection_record": null,
+  "allowed_scope": null,
+  "source_version": null,
+  "inputs": [],
+  "outputs": [],
+  "execution": {
+    "tool_or_model": null,
+    "tool_version": null,
+    "prompt_version": null,
+    "started_on": null,
+    "finished_on": null
+  },
+  "completeness": {
+    "status": "unknown",
+    "available_parts": [],
+    "missing_parts": [],
+    "budget_stop_reason": null
+  },
+  "checks": [],
+  "failure_reason": null,
+  "retry_after": null,
+  "next_stage": null,
+  "pending_actions": []
+}

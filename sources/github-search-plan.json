@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "status": "design_only",
+  "updated_on": "2026-10-13",
+  "platform": "github",
+  "purpose": "围绕装修学习问题发现候选仓库，不自动导入经验来源",
+  "queries": [
+    {"topic": "装修记录与开工准备", "q": "装修 in:name,description,readme fork:false"},
+    {"topic": "水电与隐蔽工程", "q": "装修 水电 in:readme fork:false"},
+    {"topic": "新风与系统预留", "q": "装修 新风 in:readme fork:false"},
+    {"topic": "净水与上下水预留", "q": "装修 净水 in:readme fork:false"},
+    {"topic": "网络与智能家居预留", "q": "装修 网络 in:readme fork:false"}
+  ],
+  "discovery_budget": {
+    "max_queries": 5,
+    "max_pages_per_query": 2,
+    "per_page": 20,
+    "sort": null,
+    "requires_exhaustive_results": false
+  },
+  "preflight_budget": {
+    "readme_if_selected": true,
+    "max_additional_text_files": 2
+  },
+  "fetch_budget": {
+    "max_text_files_per_source": 20,
+    "max_bytes_per_file": 1048576,
+    "max_total_bytes_per_source": 10485760,
+    "supported_text_extensions": [".md", ".txt"],
+    "encoding": "utf-8"
+  },
+  "policy": {
+    "discovery_is_source_selection": false,
+    "preflight_requires_user_selected_scope": true,
+    "fetch_requires_user_selected_scope": true,
+    "pin_commit_before_reading": true,
+    "follow_external_links": false,
+    "follow_submodules_or_symlinks": false,
+    "fetch_lfs_objects": false,
+    "execute_repository_code": false,
+    "auto_mark_claims_verified": false,
+    "raw_and_cleaned_content_storage": "local_untracked"
+  },
+  "last_executed_on": null,
+  "last_batch_id": null
+}

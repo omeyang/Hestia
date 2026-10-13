@@ -1,0 +1,14 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Noto Sans CJK SC, sans-serif", "primaryColor": "#eff6ff", "primaryTextColor": "#172033", "primaryBorderColor": "#64748b", "lineColor": "#475569", "background": "#ffffff"}, "flowchart": {"htmlLabels": false, "padding": 18}}}%%
+flowchart TB
+    S["搜索：发现候选<br/>AI 设计查询，工具记录响应"] --> R["粗验：相关性与来源线索<br/>记录筛选结果和理由"]
+    R --> A{"是否已有用户指定范围？"}
+    A -->|否| Q["候选清单待指定<br/>不导入原文与证据"]
+    Q -->|用户指定范围| P["初验：少量原文试读<br/>检查内容、定位与权利"]
+    A -->|是| P
+    P --> C["清洗抓取：固定版本后获取<br/>原文保留，AI 标注与提取"]
+    C --> O["整理汇总落地<br/>去重、核验、争议与适用性"]
+    O --> L["处理卡、结论与学习文章<br/>保留核验标签和缺口"]
+    O --> V{"关键结论已核验且适用？"}
+    V -->|是| G["阶段指南与行动清单"]
+    V -->|否| U["待核验、争议或资料缺口<br/>相关行动建议暂不采用"]
+    U -.->|范围内补证与复核| O
