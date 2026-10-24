@@ -58,6 +58,22 @@ def title_issues(title):
     return issues
 
 
+def embedded_title_issues(records):
+    """找出一条记录完整包含另一条记录标题的情况；相同标题不算。"""
+    titles = [(number, record.get("title"), record.get("url"))
+              for number, record in enumerate(records, 1) if isinstance(record, dict)]
+    findings = []
+    for number, title, url in titles:
+        if not isinstance(title, str) or len(title) < 12:
+            continue
+        for other_number, other, _ in titles:
+            if (number != other_number and isinstance(other, str) and other != title
+                    and len(other) >= 12 and other in title):
+                findings.append({"row": number, "url": canonical_url(url),
+                                 "contains_row": other_number})
+    return findings
+
+
 def analyze(records, unresolved=(), expected_total=None):
     errors, titles, conflicts = [], [], []
     urls = []
@@ -107,7 +123,7 @@ def analyze(records, unresolved=(), expected_total=None):
         "missing_fields": {key: missing[key] for key in ("title", "author", "author_url")},
         "duplicate_urls": duplicates, "errors": errors,
         "unresolved_cards": list(unresolved), "field_conflicts": conflicts,
-        "title_review": titles,
+        "title_review": titles, "embedded_title_review": embedded_title_issues(records),
     }
 
 
@@ -154,6 +170,7 @@ def main():
                 print("可用性观察（不代表播放核验）:", result["availability"])
                 print("空字段:", result["missing_fields"])
                 print(f"待复核标题 {len(result['title_review'])}，"
+                      f"串联标题 {len(result['embedded_title_review'])}，"
                       f"字段冲突 {len(result['field_conflicts'])}，"
                       f"无链接失效提示样本 {len(result['unresolved_cards'])}")
                 for error in result["errors"][:5]:

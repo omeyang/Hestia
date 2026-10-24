@@ -10,7 +10,9 @@ from xml.sax.saxutils import escape
 from zipfile import ZipFile
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
-from douyin_favorites_check import analyze, canonical_url, compare, load_records, title_issues
+from douyin_favorites_check import (
+    analyze, canonical_url, compare, embedded_title_issues, load_records, title_issues,
+)
 from douyin_favorites_audit import audit, read_table
 
 
@@ -74,6 +76,14 @@ class JsonTests(unittest.TestCase):
         self.assertTrue(title_issues("年装修顺序"))
         self.assertFalse(title_issues("39分钟封窗帧帧干货"))
         self.assertTrue(title_issues("这是一个足够长的重复测试标题这是一个足够长的重复测试标题"))
+
+    def test_embedded_title_is_reported_without_flagging_equal_titles(self):
+        embedded = "乙标题用于串联检测的完整文本"
+        records = [record(1, title="可能串联的前缀" + embedded),
+                   record(2, title=embedded), record(3, title=embedded)]
+        findings = embedded_title_issues(records)
+        self.assertEqual([(item["row"], item["contains_row"]) for item in findings], [(1, 2), (1, 3)])
+        self.assertEqual(analyze(records)["embedded_title_review"], findings)
 
     def test_loader_formats_and_invalid_input(self):
         with tempfile.TemporaryDirectory() as directory:
