@@ -1,7 +1,7 @@
 /* 在抖音「我的收藏」浏览器控制台粘贴整个文件。无依赖、无请求、不改动收藏。
  * 慢速手动滚动；查看 __hestiaFavorites.probe()。
  * 结束后：copy(__hestiaFavorites.export())；停止观察：__hestiaFavorites.stop()。
- * 刷新页面后重跑为独立第二遍。DOM 选择器仍须在实际页面探针核对。
+ * 刷新页面后重跑为独立第二遍。2026-10-24 已验证当前收藏页；结构变化时重新探针核对。
  */
 (() => {
   if (window.__hestiaFavorites) {
@@ -25,6 +25,15 @@
   };
   const links = (li, kind) => [...li.querySelectorAll(`a[href*="/${kind}/"]`)]
     .map(anchor => ({ anchor, url: normalize(anchor.href, kind) })).filter(item => item.url);
+  const cardMetadata = (li, anchor) => {
+    const alt = clean(anchor.querySelector('img[alt]')?.alt);
+    const match = alt.match(/^([^：:]+)[：:](.*)$/);
+    const altTitle = clean(match ? match[2] : alt);
+    if (altTitle) {
+      return { title: altTitle, author: clean(match?.[1]), title_source: 'cover-alt' };
+    }
+    return { title: clean(li.innerText).split('\n')[0], author: '', title_source: 'li.innerText:firstLine' };
+  };
   let observer, timer, pending;
   let stopped = false;
   const scan = () => {
@@ -39,18 +48,21 @@
         continue;
       }
       const url = videos[0].url;
+      const metadata = cardMetadata(li, videos[0].anchor);
       const authors = links(li, 'user');
       const authorUrls = new Set(authors.map(item => item.url));
       const author = authorUrls.size === 1 ? authors[0] : null;
       const observation = {
-        title: clean(text.split('\n')[0]),
-        author: author ? clean(author.anchor.innerText).replace(/^@/, '') : '',
+        title: metadata.title,
+        title_source: metadata.title_source,
+        author: author ? clean(author.anchor.innerText).replace(/^@/, '') : metadata.author,
+        author_source: author ? 'user-anchor' : (metadata.author ? 'cover-alt' : ''),
         author_url: author ? author.url : '',
         invalid: isUnavailable(text),
       };
       const now = new Date().toISOString();
       if (!records.has(url)) {
-        records.set(url, { url, ...observation, title_source: 'li.innerText:firstLine',
+        records.set(url, { url, ...observation,
           first_seen_at: now, last_seen_at: now, field_variants: {} });
       } else {
         const record = records.get(url);
@@ -75,7 +87,11 @@
       user_link_li_count: cards.filter(li => links(li, 'user').length).length,
       ambiguous_video_li_count: cards.filter(li => new Set(links(li, 'video').map(x => x.url)).size > 1).length,
       unavailable_li_count: lis.filter(li => isUnavailable(li.innerText || '')).length,
-      samples: cards.slice(0, 3).map(li => ({ text: li.innerText, html: li.outerHTML.slice(0, 1500) })),
+      samples: cards.slice(0, 3).map(li => {
+        const video = links(li, 'video')[0];
+        return { text: li.innerText, metadata: cardMetadata(li, video.anchor),
+          html: li.outerHTML.slice(0, 1500) };
+      }),
       ...scan(), stopped,
     };
   };

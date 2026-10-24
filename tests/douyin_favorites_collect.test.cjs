@@ -6,10 +6,15 @@ const path = require('node:path');
 const vm = require('node:vm');
 const source = fs.readFileSync(path.join(__dirname, '../scripts/douyin_favorites_collect.js'), 'utf8');
 
-function card(text, videos = [], authors = []) {
+function card(text, videos = [], authors = [], alt = '') {
   return { innerText: text, outerHTML: '<li>虚构卡片</li>', querySelectorAll(selector) {
-    const values = selector.includes('/video/') ? videos : authors;
-    return values.map(value => typeof value === 'string' ? { href: value, innerText: '' } : value);
+    const isVideo = selector.includes('/video/');
+    const values = isVideo ? videos : authors;
+    return values.map(value => {
+      const anchor = typeof value === 'string' ? { href: value, innerText: '' } : value;
+      if (isVideo) anchor.querySelector = () => alt ? { alt } : null;
+      return anchor;
+    });
   } };
 }
 const video = id => `https://www.douyin.com/video/${id}`;
@@ -37,6 +42,16 @@ test('captures first screen, retains recycled cards, normalizes URLs without los
   s.api.scan();
   assert.equal(s.data().records.length, 2);
   assert.equal(s.data().records[0].url, video('1234567890123456789'));
+});
+
+test('prefers cover alt for title and author instead of visible like count', () => {
+  const s = setup([card('3234\n可见标题', [video('5')], [], '作者甲：完整标题：含冒号')]);
+  const r = s.data().records[0];
+  assert.equal(r.title, '完整标题：含冒号');
+  assert.equal(r.title_source, 'cover-alt');
+  assert.equal(r.author, '作者甲');
+  assert.equal(r.author_source, 'cover-alt');
+  assert.equal(r.author_url, '');
 });
 
 test('preserves conflicting titles, authors and availability instead of overwriting', () => {
