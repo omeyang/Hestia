@@ -1,141 +1,173 @@
 #!/usr/bin/env python3.12
-"""抖音收藏提取结果对账与伪影检测。
+"""只读核查抖音收藏 JSON；仅 Python 3.12 标准库，无网络请求。
 
-输入：控制台提取脚本产出的 JSON 文件（记录含 url/title/author/author_url/invalid）。
-输出：对账统计与标题伪影检测报告。本脚本只报告、不修改任何数据；
-所有"建议修复"都需人工确认后另行处理，避免自动改写引入新错误。
-
-用法：
-  对账与伪影检测：python3.12 scripts/douyin_favorites_check.py douyin_favorites_raw.json
-  双次提取比对：python3.12 scripts/douyin_favorites_check.py raw_第一遍.json raw_第二遍.json
-
-背景：同一视频两次提取可能产生不同伪影（截断型/重拷贝型，2026-10-24
-已用 472 条历史数据实证），因此推荐滚动结束后间隔片刻再提取一次并比对。
+python3.12 scripts/douyin_favorites_check.py raw.json [second.json] [--json]
+支持历史数组与控制台采集器的 records 封装。退出码 1 表示结构/对账错误，
+0 仅表示这些检查通过，不能证明视频有效、作者归属或标题正确。
 """
+import argparse
+from collections import Counter
 import json
+from pathlib import Path
+import re
 import sys
-
-# 数字后紧跟这些字（量词/单位）时视为正文的一部分；否则视为粘连的点赞数等噪声
-KEEP_UNITS = "秒分钟小时天日年月元个条万倍平次%平方集期"
-# 判定为重复伪影的最短重复子串长度
-MIN_REPEAT = 12
+from urllib.parse import urlsplit
 
 
-def longest_repeat(t):
-    """返回 (子串, 首次位置, 二次位置)；无则返回 None。取最长的重复片段。"""
-    max_l = min(80, len(t) // 2)
-    for L in range(max_l, MIN_REPEAT - 1, -1):
-        for i in range(len(t) - 2 * L + 1):
-            s = t[i:i + L]
-            j = t.find(s, i + L)
-            if j != -1:
-                return s, i, j
-    return None
+def canonical_url(value, kind="video"):
+    """只接受抖音正式 HTTPS 路径；去参数、片段与尾斜杠，视频 ID 始终为字符串。"""
+    if not isinstance(value, str):
+        return None
+    try:
+        parsed = urlsplit(value.strip())
+        pattern = r"/video/[0-9]+/?" if kind == "video" else r"/user/[A-Za-z0-9_-]+/?"
+        if (parsed.scheme != "https" or parsed.netloc not in ("www.douyin.com", "douyin.com")
+                or not re.fullmatch(pattern, parsed.path)):
+            return None
+        return "https://www.douyin.com" + parsed.path.rstrip("/")
+    except ValueError:
+        return None
 
 
-def leading_digits(t, pos, cap=4):
-    """取 pos 前紧邻的连续数字（至多 cap 位），用于识别被剥离的 2026/80/15/9 等。"""
-    k = 0
-    while k < cap and pos - k - 1 >= 0 and t[pos - k - 1].isdigit():
-        k += 1
-    return t[pos - k:pos] if k else ""
+def load_records(path):
+    data = json.loads(Path(path).read_text(encoding="utf-8-sig"))
+    if isinstance(data, dict):
+        if data.get("schema") != "hestia.douyin.favorites.v1":
+            raise ValueError("未知采集封装 schema")
+        records = data.get("records")
+        unresolved = data.get("unresolved_cards", [])
+        if not isinstance(unresolved, list):
+            raise ValueError("unresolved_cards 必须是数组")
+    else:
+        records, unresolved = data, []
+    if not isinstance(records, list):
+        raise ValueError("输入须为 JSON 数组，或含 records 数组的采集封装")
+    return records, unresolved
 
 
-def detect(title):
-    """返回 [(置信度, 类型, 建议修复文本或空)] 列表。"""
+def title_issues(title):
+    """只标记可疑现象，不推测丢失的数字，也不产生自动修复文本。"""
     issues = []
-    rep = longest_repeat(title)
-    broken_start = title and title[0] in "%年月日"
-    if rep:
-        s, i, j = rep
-        suggestion = ""
-        digits = leading_digits(title, j)
-        if digits and j + len(digits) <= len(title):
-            nxt = title[j + len(digits):j + len(digits) + 1] or " "
-            if nxt in KEEP_UNITS:
-                # 数字是正文一部分（如 2026年 / 666秒 / 80%）
-                suggestion = digits + title[j:]
-            else:
-                # 数字是粘连噪声（如点赞数 4251【）
-                suggestion = title[j:]
-        elif title.endswith(s):
-            suggestion = title[j:]
-        else:
-            suggestion = title[j:]
-        level = "高" if broken_start else "中"
-        issues.append((level, "重复片段", suggestion))
-    elif broken_start:
-        issues.append(("低", "残缺开头", ""))
+    if title[:1] and title[0] in "%年月日":
+        issues.append("疑似残缺开头")
+    for length in range(min(80, len(title) // 2), 11, -1):
+        for start in range(len(title) - 2 * length + 1):
+            part = title[start:start + length]
+            if title.find(part, start + length) != -1:
+                return issues + ["重复片段（可能是自然重复）"]
     return issues
 
 
-def compare(path_a, path_b):
-    """双次提取交叉比对：找出仅出现于一侧的卡片（漏卡）与字段不一致（时序伪影）。"""
-    with open(path_a, encoding="utf-8") as f:
-        a = {v.get("url"): v for v in json.load(f)}
-    with open(path_b, encoding="utf-8") as f:
-        b = {v.get("url"): v for v in json.load(f)}
-    only_a = [u for u in a if u not in b]
-    only_b = [u for u in b if u not in a]
-    print("=== 双次提取比对 ===")
-    print(f"第一遍: {len(a)} 条   第二遍: {len(b)} 条")
-    print(f"仅第一遍有（第二遍漏卡）: {len(only_a)}")
-    for u in only_a[:5]:
-        print("  ", u)
-    print(f"仅第二遍有（第一遍漏卡）: {len(only_b)}")
-    for u in only_b[:5]:
-        print("  ", u)
-    fields = ("title", "author", "author_url", "invalid")
-    diff = [(u, k) for u in a if u in b for k in fields
-            if (a[u].get(k) or "") != (b[u].get(k) or "")]
-    print(f"字段不一致: {len(diff)} 条")
-    for u, k in diff[:10]:
-        print(f"  [{k}] {u}")
-        print(f"    第一遍: {str(a[u].get(k))[:60]}")
-        print(f"    第二遍: {str(b[u].get(k))[:60]}")
-    print("字段不一致处优先以更完整的一方为准，并按伪影检测规则复核。")
+def analyze(records, unresolved=(), expected_total=None):
+    errors, titles, conflicts = [], [], []
+    urls = []
+    statuses = Counter()
+    missing = Counter()
+    for number, record in enumerate(records, 1):
+        if not isinstance(record, dict):
+            errors.append({"row": number, "error": "记录不是对象"})
+            continue
+        url = canonical_url(record.get("url"))
+        if url:
+            urls.append(url)
+        else:
+            errors.append({"row": number, "error": "无效或缺失视频 URL"})
+        for field in ("title", "author", "author_url"):
+            value = record.get(field)
+            if value is not None and not isinstance(value, str):
+                errors.append({"row": number, "error": f"{field} 必须为字符串或 null"})
+            if not value:
+                missing[field] += 1
+        if record.get("author_url") and not canonical_url(record["author_url"], "user"):
+            errors.append({"row": number, "error": "无效作者主页 URL"})
+        flag = record.get("invalid")
+        if flag is True:
+            statuses["unavailable_hint"] += 1
+        elif flag is False:
+            statuses["no_unavailable_hint"] += 1
+        else:
+            statuses["unknown"] += 1
+            if flag is not None:
+                errors.append({"row": number, "error": "invalid 必须为布尔值或 null"})
+        title = record.get("title")
+        if isinstance(title, str) and (issues := title_issues(title)):
+            titles.append({"row": number, "url": url, "title": title, "issues": issues})
+        if record.get("field_variants"):
+            conflicts.append({"row": number, "url": url, "variants": record["field_variants"]})
+    duplicates = {url: count for url, count in Counter(urls).items() if count > 1}
+    if duplicates:
+        errors.append({"error": "规范化后视频 URL 重复", "urls": duplicates})
+    if expected_total is not None and len(set(urls)) != expected_total:
+        errors.append({"error": "唯一视频数与页面总数不符", "expected": expected_total,
+                       "actual": len(set(urls))})
+    return {
+        "records": len(records), "unique_urls": len(set(urls)),
+        "availability": {key: statuses[key] for key in
+                         ("unavailable_hint", "no_unavailable_hint", "unknown")},
+        "missing_fields": {key: missing[key] for key in ("title", "author", "author_url")},
+        "duplicate_urls": duplicates, "errors": errors,
+        "unresolved_cards": list(unresolved), "field_conflicts": conflicts,
+        "title_review": titles,
+    }
+
+
+def compare(a, b):
+    """调用方先检查重复与无效 URL，避免字典覆盖掩盖输入错误。"""
+    left = {canonical_url(r["url"]): r for r in a}
+    right = {canonical_url(r["url"]): r for r in b}
+    differences = []
+    for url in sorted(left.keys() & right.keys()):
+        for field in ("title", "author", "author_url", "invalid"):
+            av, bv = left[url].get(field), right[url].get(field)
+            if av != bv:
+                differences.append({"url": url, "field": field, "first": av, "second": bv})
+    return {"only_first": sorted(left.keys() - right.keys()),
+            "only_second": sorted(right.keys() - left.keys()), "differences": differences}
 
 
 def main():
-    if len(sys.argv) == 3:
-        compare(sys.argv[1], sys.argv[2])
-        return
-    if len(sys.argv) != 2:
-        print(__doc__)
-        sys.exit(1)
-    with open(sys.argv[1], encoding="utf-8") as f:
-        data = json.load(f)
-
-    # ---- 对账 ----
-    urls = [v.get("url", "") for v in data]
-    dup = sorted({u for u in urls if urls.count(u) > 1})
-    invalid = [v for v in data if v.get("invalid")]
-    no_author = [v for v in data if not v.get("author")]
-    no_author_url = [v for v in data if not v.get("author_url")]
-    print("=== 对账 ===")
-    print(f"总记录: {len(data)}   URL唯一数: {len(set(urls))}   重复URL: {len(dup)}")
-    if dup:
-        print("  重复URL示例:", dup[:3])
-    print(f"失效标记: {len(invalid)}   对账公式: 总记录 = 有效 + 失效")
-    print(f"author为空: {len(no_author)}   author_url为空: {len(no_author_url)}")
-    print("  （author 大面积为空说明卡片内无 a[href*='/user/'] 锚点，需改用探针确认博主元素选择器）")
-
-    # ---- 伪影检测 ----
-    print("\n=== 标题伪影检测（报告型，不修改数据；建议均需人工确认） ===")
-    n_flag = 0
-    for idx, v in enumerate(data, 1):
-        t = v.get("title") or ""
-        if len(t) < MIN_REPEAT:
-            continue
-        for level, kind, sug in detect(t):
-            n_flag += 1
-            print(f"\n[{level}|{kind}] #{idx}")
-            print(f"  原文: {t[:80]}{'…' if len(t) > 80 else ''}")
-            if sug:
-                print(f"  建议: {sug[:80]}{'…' if len(sug) > 80 else ''}")
-            print(f"  链接: {v.get('url', '')}")
-    print(f"\n共标记 {n_flag} 条（含可能的误报，如正文自然重复的说明书式长标题）。")
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("first")
+    parser.add_argument("second", nargs="?")
+    parser.add_argument("--expected-total", type=int)
+    parser.add_argument("--json", action="store_true", help="输出完整 JSON 报告（含个人清单，仅本地保存）")
+    args = parser.parse_args()
+    try:
+        a, unresolved = load_records(args.first)
+        first = analyze(a, unresolved, args.expected_total)
+        report = {"first": first}
+        if args.second:
+            b, unresolved_b = load_records(args.second)
+            second = analyze(b, unresolved_b, args.expected_total)
+            report["second"] = second
+            if not first["errors"] and not second["errors"]:
+                report["comparison"] = compare(a, b)
+        if args.json:
+            print(json.dumps(report, ensure_ascii=False, indent=2))
+        else:
+            for key in ("first", "second"):
+                if key not in report:
+                    continue
+                result = report[key]
+                print(f"{key}: 记录 {result['records']}，唯一 URL {result['unique_urls']}，"
+                      f"结构/对账错误 {len(result['errors'])}")
+                print("可用性观察（不代表播放核验）:", result["availability"])
+                print("空字段:", result["missing_fields"])
+                print(f"待复核标题 {len(result['title_review'])}，"
+                      f"字段冲突 {len(result['field_conflicts'])}，"
+                      f"无链接失效提示样本 {len(result['unresolved_cards'])}")
+                for error in result["errors"][:5]:
+                    print("错误:", error)
+            if "comparison" in report:
+                comp = report["comparison"]
+                print(f"仅第一遍 {len(comp['only_first'])}，仅第二遍 {len(comp['only_second'])}，"
+                      f"字段差异 {len(comp['differences'])}")
+            print("完整明细用 --json 查看；本工具不改写数据，不推断失效或自动修复。")
+        return int(any(report[key]["errors"] for key in ("first", "second") if key in report))
+    except (OSError, ValueError) as exc:
+        print(f"输入错误: {exc}", file=sys.stderr)
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

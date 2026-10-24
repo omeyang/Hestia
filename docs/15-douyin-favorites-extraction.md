@@ -1,153 +1,104 @@
-# 抖音收藏提取方案与脚本
+# 抖音收藏提取与核查
 
-状态：收藏页控制台提取脚本（增量累积版）、探针脚本与对账脚本已成文。对账脚本已用 472 条历史真实数据回测，提取脚本核心逻辑已通过模拟 DOM 单元测试（见[验证记录](#验证记录)）。选择器在真实收藏页的命中情况未经浏览器实测，**首次运行必须先跑探针**。个人收藏清单与原始数据保存在本地，不进入本仓库。技术核对日期：2026-10-24。
+状态：已实现收藏页控制台采集器、JSON 核查及 JSON/XLSX 对账工具。2026-10-24 完成文件级回测与自动测试；**尚未在当前登录的抖音收藏页验证选择器及完整性**。不能把模拟 DOM 测试写成真实采集成功，也不能保证一次滚动拿全量。
 
-本文是[统一来源管道](09-source-pipeline-and-github.md)在抖音收藏场景下的采集执行方案：提取产物是"搜索/发现"阶段的候选元数据，不自动进入 `sources/registry.json`。
+收藏元数据属于[统一来源管道](09-source-pipeline-and-github.md)的候选输入。个人 JSON、Excel、探针输出、核查明细只放本地，不能提交公开仓库。历史核查与清理见[本地成果核查及归档](16-douyin-favorites-audit-and-cleanup.md)。
 
-## 为什么在收藏页一次性提取
+## 已确认的方法与边界
 
-| 方法 | 实测结果 | 依据 |
-| --- | --- | --- |
-| 收藏页控制台一次性提取（本方案） | 一条脚本随滚动增量收集，约 1～2 分钟拿全量 | 首选方案 |
-| 逐个打开视频页提取 | 391 个视频约半小时量级；博主主页链接 388/388 全部提取失败（DOM 锚点法），博主名靠 meta description 才成功 | 2026-10-18 selenium 实测 |
-| 无浏览器直接请求 | 返回无数据的反爬壳页（JS 混淆，无正文） | 2026-10-24 curl 实测 |
+- 用户登录网页后，可以从已经渲染的收藏卡片读取可见元数据。一次 `querySelectorAll` 只反映当前 DOM，不能证明读取了全部收藏。
+- 懒加载与虚拟列表需要边滚动边累积，按规范视频 URL 去重。不要只在滚动到底后抓一次。
+- `li.innerText` 首行只是标题候选，可能包含计数、残缺开头或重复文本。保留观察差异，不凭规则补年份、数字或删正文。
+- 卡片内作者链接可以作为作者候选；仍须抽样核对视频归属。不能取整页第一个 `/user/` 链接，也不能取整个 `_ROUTER_DATA` 第一个 `sec_uid` / `nickname`，两者可能来自不同对象或推荐视频。
+- 失效提示是页面观察。没有提示不代表已播放核验；没有链接的失效卡不能恢复视频 ID，也不能简单计入唯一视频总数。
+- 历史说明中的 Selenium 耗时、HTTP 反爬实测、388 次主页提取失败等，现存文件没有足够运行日志可独立复核，本方案不把这些叙述作为已验证结论。
 
-## 使用流程
+## 原始片段为什么失败
 
-登录 [www.douyin.com](https://www.douyin.com) → 进入"我的收藏" → 滚动一屏确认卡片渲染 → 依次执行：
+用户提供的 `.map(li => …).filter(v => v && !li.innerText.includes('视频不见了'))` 中，`li` 只存在于 `map` 回调作用域；只要有记录进入 `filter` 后半段，就会触发 `ReferenceError: li is not defined`。可复现测试保存在 `tests/douyin_favorites_collect.test.cjs`。
 
-### 第 1 步：探针（首次必跑）
+下面是便于理解的**当前屏幕快照**修正版，失效判断放在 `map` 内，保留标记而不删除记录：
 
 ```js
-(() => {
-  const lis = [...document.querySelectorAll('li')];
-  const cards = lis.filter(li => li.querySelector('a[href*="/video/"]'));
-  const withUser = cards.filter(li => li.querySelector('a[href*="/user/"]'));
-  const invalid = cards.filter(li => (li.innerText || '').includes('视频不见了'));
-  const sample = cards.slice(0, 3).map(li => ({
-    全部行: (li.innerText || '').split('\n'),
-    博主锚点: !!li.querySelector('a[href*="/user/"]')
-  }));
-  console.log(JSON.stringify({
-    li总数: lis.length,
-    视频卡片: cards.length,
-    其中含博主锚点: withUser.length,
-    失效卡片: invalid.length,
-    样本: sample
-  }, null, 2));
-})();
+copy(JSON.stringify(Array.from(document.querySelectorAll('li')).map(li => {
+  const a = li.querySelector('a[href*="/video/"]');
+  if (!a) return null;
+  const u = new URL(a.href);
+  if (!['www.douyin.com', 'douyin.com'].includes(u.hostname) ||
+      u.protocol !== 'https:' || !/^\/video\/[0-9]+\/?$/.test(u.pathname)) return null;
+  const text = li.innerText || '';
+  const au = li.querySelector('a[href*="/user/"]');
+  return {
+    title: text.split('\n')[0].trim(),
+    url: 'https://www.douyin.com' + u.pathname.replace(/\/$/, ''),
+    author: (au?.innerText || '').trim().replace(/^@/, ''),
+    author_url: au ? au.href.split(/[?#]/)[0] : '',
+    invalid: /视频不见了|视频已删除/.test(text)
+  };
+}).filter(Boolean), null, 2));
 ```
 
-| 探针结果 | 判读 |
+此快照不累积、不去重，也不处理父子 `li` 嵌套与多作者歧义。正式收集使用下列文件，避免维护多份“最终版”。
+
+## 正式采集步骤
+
+1. 登录 [抖音网页版](https://www.douyin.com)，进入“我的收藏”，确认只展示本次目标列表。回到列表顶部，等首屏卡片渲染。
+2. 把 [douyin_favorites_collect.js](../scripts/douyin_favorites_collect.js) **完整文件内容**粘贴到开发者工具控制台执行。代码不发网络请求、不操作收藏，只观察当前页 DOM。
+3. 执行 `__hestiaFavorites.probe()`，检查样本中的文本、HTML 与链接确实属于目标视频卡片。探针输出只在本地保存。
+
+| 探针字段 | 检查与处置 |
 | --- | --- |
-| 视频卡片为 0 | 列表未渲染或未使用 `li`；等待/滚动后重试，仍为 0 则按"样本"里实际的 DOM 结构调整选择器，并回写本文档 |
-| 含博主锚点 ≈ 视频卡片 | `author`、`author_url` 可一次提取完整 |
-| 含博主锚点为 0 | 卡片内无 `a[href*="/user/"]`；从样本"全部行"中定位博主行（通常带 `@` 或独立成行），确定替代选择器后回写本文档 |
-| 失效卡片 > 0 | "视频不见了"过滤逻辑将被触发，记录为失效而非丢弃，保证对账可闭合 |
+| `video_li_count` | 为 0 时先等待渲染；仍为 0 则停止并根据当前 DOM 调整选择器。无匹配 `li` 时，探针样本也为空，需要在 Elements 中检查真实卡片结构。 |
+| `user_link_li_count` | 为 0 表示当前卡片未命中作者锚点；作者字段保持空，不据此编造主页。 |
+| `ambiguous_video_li_count` | 含多条不同视频链接的 `li` 不作单卡采集；确认是否只是父容器，或真实卡片无法被当前选择器覆盖。 |
+| `unavailable_li_count` | 当前 `li` 中的提示观察数，可能因嵌套重复，不能当失效视频数。 |
+| `records` / `unresolved_samples` | 已累积的唯一链接数 / 无链接提示文本样本数；后者按文本去重，不代表卡片数量。 |
 
-### 第 2 步：提取（间隔片刻跑两遍）
+4. **慢速手动滚动实际收藏列表**，每屏停留等待渲染。采集器先读首屏，再通过 DOM 变化与定时扫描累积；不猜测滚动容器，不以连续几次无增长作为完成证明。滚太快、页面结构改变或非视频收藏仍可能漏采。
+5. 到底后执行 `__hestiaFavorites.scan()`，和页面显示的收藏类型、计数核对。执行以下命令复制结果，再把剪贴板保存为本地 `raw_1.json`：
 
-```js
-(async () => {
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-  window.__favAcc = window.__favAcc || new Map();
-  const acc = window.__favAcc;
-  const clean = s => (s || '').trim();
+   ```js
+   copy(__hestiaFavorites.export())
+   __hestiaFavorites.stop()
+   ```
 
-  window.__favCollect = () => {
-    document.querySelectorAll('li').forEach(li => {
-      const a = li.querySelector('a[href*="/video/"]');
-      if (!a) return;
-      const url = a.href.split('?')[0];
-      const text = li.innerText || '';
-      const rec = acc.get(url) || { url };
-      if (text.includes('视频不见了')) { rec.invalid = true; }
-      else {
-        rec.title = clean(text.split('\n')[0]);
-        const au = li.querySelector('a[href*="/user/"]');
-        rec.author = au ? clean(au.innerText).replace(/^@/, '') : (rec.author || '');
-        rec.author_url = au ? au.href.split('?')[0] : (rec.author_url || '');
-        rec.invalid = false;
-      }
-      acc.set(url, rec);
-    });
-    return acc.size;
-  };
+6. 刷新页面，从顶部独立采集第二遍，保存 `raw_2.json`。在同一页重复粘贴代码会沿用现有会话，不能当第二遍。停止后的会话保留导出能力，重新采集也应刷新。
 
-  window.__favStop = () => {
-    if (window.__favTimer) { clearInterval(window.__favTimer); window.__favTimer = null; }
-    const arr = [...acc.values()];
-    console.log(`共 ${arr.length} 条，其中失效 ${arr.filter(x => x.invalid).length} 条`);
-    console.log('样本:', JSON.stringify(arr.slice(0, 2), null, 2));
-    copy(JSON.stringify(arr));
-    console.log('已复制到剪贴板 → 保存为 douyin_favorites_raw_1.json');
-  };
+采集器用 URL 的字符串路径保留长视频 ID，统一域名、去掉查询参数、片段及尾斜杠。相同视频后续出现非空差异时，首次值保留，差异写入 `field_variants`；缺失字段可由后续观察补齐。无链接的失效提示写入 `unresolved_cards`，不制造 URL。`title_source` 明确记录当前只用了卡片文本首行。
 
-  window.__favCollect();          // 先收集首屏，防止首轮滚动触发重渲染时首屏卡片被虚拟列表回收
-  let last = -1, stable = 0;
-  for (let round = 0; round < 300; round++) {
-    window.scrollTo(0, document.body.scrollHeight);
-    await sleep(1200);
-    const n = window.__favCollect();
-    if (n === last) { if (++stable >= 3) break; } else { stable = 0; }
-    last = n;
-  }
-  window.__favTimer = setInterval(() => console.log('累积:', window.__favCollect()), 2000);
-  console.log('自动滚动结束。若数量已达收藏总数，运行 __favStop()；' +
-    '若滚动容器不是 window（数量停增长但页面未到底），继续手动滚动，定时器会持续收集，完成后运行 __favStop()。');
-})();
-```
+## 对账与差异复核
 
-要点：
-
-- **增量累积**：收藏页为懒加载，且可能虚拟列表回收已滚动过的卡片；按 URL 去重的 Map 在滚动过程中反复合并，两次渲染的同一卡片只留一条。
-- **失效标记不丢弃**：失效视频记 `invalid: true`，保证总数对账闭合。
-- **后渲染覆盖**：同一 URL 后一次渲染的标题会覆盖前一次。若后一次是截断形态，会覆盖完整形态——这是跑两遍并交叉比对的直接原因。
-- 第二遍提取前，刷新页面重新执行同一段脚本，`__favStop()` 时保存为 `raw_2.json`。
-
-### 第 3 步：对账与交叉比对
+在仓库根目录运行（Python 3.12 标准库，无第三方依赖）：
 
 ```bash
-# 双遍比对：漏卡与字段不一致（时序伪影）
-python3.12 scripts/douyin_favorites_check.py douyin_favorites_raw_1.json douyin_favorites_raw_2.json
-# 对账与伪影检测
-python3.12 scripts/douyin_favorites_check.py douyin_favorites_raw_1.json
+# 单遍核查；只有页面本次明确显示总数时才填写 --expected-total。
+python3.12 scripts/douyin_favorites_check.py local/douyin/raw_1.json --expected-total 472
+
+# 两遍均先校验结构、URL 与重复，合格后比较，避免字典覆盖重复记录。
+python3.12 scripts/douyin_favorites_check.py local/douyin/raw_1.json local/douyin/raw_2.json
+
+# 全量差异保存在被 Git 忽略的本地目录；父目录须已存在。
+python3.12 scripts/douyin_favorites_check.py local/douyin/raw_1.json local/douyin/raw_2.json \
+  --json > local/douyin/compare.json
 ```
 
-对账公式：**收藏总数 = 提取记录数 = 有效 + 失效**；URL 必须唯一。2026-10 历史基线：472 = 465 有效 + 7 失效。
+`472` 只是历史数据的示例数，不是当前账号固定总数。采集器输出含 `schema`、`records`、`unresolved_cards` 的封装；核查器同时兼容旧版 JSON 数组。
 
-### 第 4 步：人工确认清洗
+报告区分三类观察：`invalid: true` 为出现失效提示，`false` 为未见提示，缺失或 `null` 为未知。缺少标记不能当作有效。字段冲突、无链接提示、标题可疑项均须复核；结构错误或计数不符退出码为 1，退出码 0 只表示这些检查通过。两遍相同也不能证明未共同漏采。
 
-检测脚本的"建议修复"只供参考，**所有清洗必须人工确认后执行**，不得自动改写（对账脚本只报告、不修改数据）。
+只有页面总数与目标列表口径一致、每张卡均能识别，且无未解决提示时，才能尝试闭合“页面总数 = 唯一视频数”。历史原始 472 条与归表 465 条只证明有 7 条未归表，不能证明它们失效。
 
-## 已知数据伪影（历史实证）
+人工核查时按 URL 或视频 ID 对齐，依次处理漏卡、字段冲突和标题差异；有原页面证据后记录原值、新值、依据位置与日期。作者主页必须与同一视频的作者对象关联，不能靠昵称搜索同名账号填充。同题不同 URL 保留；不同 URL 的内容是否重复，需要看视频后判断。
 
-标题来自卡片可见文本时，至少存在以下形态（均取自 2026-10 历史数据真实案例）：
+## 验证与尚缺证据
 
-| 类型 | 真实案例 | 推断成因 | 处置 | 检出方式 |
-| --- | --- | --- | --- | --- |
-| 截断型开头 | `年厨房装修哪些地方需要升级？…`（实为 `2026年厨房装修…`） | 长标题跑马灯只拷贝被读取 | 以另一遍提取或完整形态补齐 | 低置信规则（`%年月日` 开头）＋双遍比对 |
-| 重拷贝型 | `卫生间门单包口双包口哪个好 卫生间门单包口双包口哪个好#卫生间门…` | 跑马灯双份 DOM 文本被拼进同一行 | 保留后一次出现 | 中置信规则（重复子串 ≥12 字） |
-| 计数粘连 | `4251【装修攻略】施工前务必…`（4251 为点赞数） | 计数与标题文本节点相邻 | 去前缀数字 | 中置信规则（前缀数字＋重复） |
-| 时序不稳定 | 同一 URL 一次提取为 `2026年厨房…`，另一次为 `年厨房…` | DOM 渲染时机不同 | 以更完整一方为准，再按本表复核 | 双遍比对（专为此设计） |
-| 同款爆款同题 | `不会真的有人跟着装修博主学装修吧？`（15 条同题） | 多博主模仿同款梗，链接互不相同 | **不是伪影，不得误删** | 人工判断：比对链接是否不同 |
-| 自然语言重复 | `3小时带你快速看完室内精装修工程的所有施工工序 本视频将…` | 说明式长标题的自然重复 | 人工排除（误报） | 检测器会标记，置信区分 |
+```bash
+python3.12 -m unittest discover -s tests -v
+node --test tests/douyin_favorites_collect.test.cjs
+```
 
-数字开头不一定是伪影：`39分钟封窗帧帧干货`、`50元改造鸡肋悬空鞋柜`、`122秒记录第一次装修` 均为正常标题。判断依据是数字后是否为量词或与正文连续，而非"以数字开头"本身。
+2026-10-24：Python 10 项测试、Node 6 项测试通过，测试数据全部虚构。覆盖 URL 规范化与长 ID、重复/坏数据、可用性三态、双遍差异、XLSX 对账、公式拒读、输入字节不变，以及模拟 DOM 的首屏、回收、冲突、无链接提示、歧义、停止与重复注入。另用现存 472 条 JSON 与两份 XLSX 完成真实文件回测，结果见[核查记录](16-douyin-favorites-audit-and-cleanup.md)。
 
-## 验证记录
+仍需真实浏览器验证：当前收藏页的 `li` / 视频与作者锚点结构、首行是否标题、不同渲染阶段字段变化、无链接失效卡的形态、实际滚动完整性。未取得这些证据前，本工具是待页面适配确认的采集器，不能标成“已完整采集”。
 
-2026-10-24 验证：
-
-| 结论 | 方式 |
-| --- | --- |
-| 初版片段 `.filter(v => v && !li.innerText…)` 中 `li` 越界引用，脚本必然中断 | Node 实证 `ReferenceError`；修正为失效判断移入 `map` 内 |
-| 提取脚本核心逻辑（累积去重、失效标记、无锚点兜底、URL 去参、收敛终止、首屏先收集）可用 | 模拟 DOM 单元测试 11 项断言通过；"循环前先收集首屏"缺陷由该测试发现并修正 |
-| 伪影检测有效但非完备 | 472 条历史数据回测：14 条真实伪影检出 13；1 条截断型（`秒讲透…`，缺 `666`）因原文无内部证据漏检，需双遍比对捕捉；6 条误报均以"低/中"置信呈现，供人工复核 |
-| 同一视频两次提取产生不同伪影形态 | 历史两次提取数据按 URL 对照实证（详见上表"时序不稳定"） |
-
-未验证、待首次真实运行确认：`a[href*="/user/"]` 在收藏卡片的命中情况（历史一次提取 author 全空，无法区分"未查询"与"查不到"）；"视频不见了"失效卡是否保留视频锚点；滚动容器是否为 `window`。探针结果应回写本文档。
-
-## 与来源管道的衔接
-
-提取产物即"搜索/发现"阶段交付的候选元数据：标题、链接、博主、主页链接、失效标记。后续步骤：用户从候选中指定范围 → 粗验、初验 → 通过后写入 `sources/registry.json`。账号信息、收藏清单与原始 JSON 属个人资料，保存在本地，不进入公开 Git 历史。
+核查后的装修候选，按用户指定范围做粗验与原文初验，通过后再登记到 `sources/registry.json`。本轮没有读取视频正文或形成施工结论。
